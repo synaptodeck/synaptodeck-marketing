@@ -1,0 +1,212 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../../layouts/Base.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
+
+const rows = [
+  {
+    capability: 'Interface',
+    ours: 'Visual grid of buttons + live widgets, always visible on screen',
+    theirs: 'Cmd-Space typeahead launcher; no persistent grid',
+    note: 'Different shapes. Raycast is keyboard-driven; SynaptoDeck is glanceable.',
+  },
+  {
+    capability: 'Cross-platform desktop',
+    ours: 'Windows + macOS at parity',
+    theirs: 'macOS (mature) + Windows (beta, Nov 2025)',
+  },
+  {
+    capability: 'Phone-as-remote',
+    ours: 'Free PWA over LAN, pair by QR, no account',
+    theirs: false,
+    note: 'Raycast has no mobile companion.',
+  },
+  {
+    capability: 'Extension / plugin ecosystem',
+    ours: 'Curated recipes (SDK on the roadmap)',
+    theirs: '2,000+ community extensions',
+    note: 'Raycast wins decisively. Closing this gap is the highest-ROI roadmap item per competitive research.',
+  },
+  {
+    capability: 'AI tooling',
+    ours: 'AI Builder authors new buttons via MCP — you approve before they apply',
+    theirs: 'AI chat with GPT / Claude / Perplexity in the command bar (Pro)',
+    note: 'Raycast AI assists you in the launcher; SynaptoDeck AI builds your deck. Different jobs.',
+  },
+  {
+    capability: 'MCP support',
+    ours: 'Native — AI proposes, you approve',
+    theirs: 'Pro tier integrates external AI; no MCP authoring path',
+  },
+  {
+    capability: 'Live-data widgets on the surface',
+    ours: 'Clock, weather, calendar, stock, CI status, Sentry, Spotify, custom HTTP',
+    theirs: 'Limited — clipboard history, snippets; widgets aren’t the model',
+  },
+  {
+    capability: 'Workflow chains',
+    ours: 'Sequence of sub-actions with delays + stop-on-error',
+    theirs: 'Quicklinks + scripts; multi-step via extensions',
+  },
+  {
+    capability: 'Inbound webhooks',
+    ours: 'POST /api/notify into the deck (toast / banner / blocking modal)',
+    theirs: false,
+  },
+  {
+    capability: 'Cloud sync',
+    ours: 'Local-first today; cloud sync ships with Pro',
+    theirs: 'Cloud sync included with Pro',
+  },
+  {
+    capability: 'Pricing',
+    ours: 'Free for personal use; Pro tier coming soon (no $ committed)',
+    theirs: 'Free; Pro $8/mo; Advanced AI +$8/mo; Teams $12/mo',
+  },
+];
+---
+
+<Base
+  title="SynaptoDeck vs Raycast"
+  description="An honest comparison: visual grid vs typeahead launcher, MCP authoring vs AI chat, Mobile Remote, pricing. Where Raycast wins. Where SynaptoDeck wins."
+>
+  <section class="container-page py-20 md:py-28">
+    <span class="eyebrow">vs Raycast</span>
+    <h1 class="heading-1 mt-4 max-w-4xl text-ink-50">SynaptoDeck vs Raycast.</h1>
+    <p class="lead mt-6 max-w-3xl">
+      Both ship launchers with AI inside. The shapes are different: Raycast is
+      keyboard-first typeahead; SynaptoDeck is a visual grid of buttons and
+      widgets you can also fire from your phone. Pick the one that matches how
+      you work.
+    </p>
+  </section>
+
+  <section class="border-t border-white/5 bg-ink-900/30">
+    <div class="container-page py-16">
+      <SectionHeading
+        eyebrow="The shape difference"
+        title="Typeahead vs grid."
+      />
+      <div class="prose-lite mt-6 max-w-3xl space-y-4">
+        <p>
+          Raycast lives behind <kbd class="rounded bg-white/[0.06] px-1.5 py-0.5 text-xs text-brand-cyan">Cmd</kbd>+<kbd class="rounded bg-white/[0.06] px-1.5 py-0.5 text-xs text-brand-cyan">Space</kbd>.
+          Type a few characters, pick a command, hit return. Fast when you know
+          what you want.
+        </p>
+        <p>
+          SynaptoDeck is on your screen. Glanceable. Buttons next to widgets
+          showing what's playing, what time your next meeting starts, whether
+          the build is green. Two taps from your phone, too.
+        </p>
+        <p>
+          If you live in the keyboard and your decks would mostly be invisible
+          most of the time, Raycast is right. If you want ambient information
+          and one-tap actions from across the room, SynaptoDeck is right.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-white/5">
+    <div class="container-page py-16">
+      <SectionHeading
+        eyebrow="The AI difference"
+        title="Assist vs author."
+      />
+      <div class="prose-lite mt-6 max-w-3xl space-y-4">
+        <p>
+          Raycast AI lives in the command bar — you ask a question, you get an
+          answer, the answer can pipe into your next command. It's an
+          assistant inside a launcher.
+        </p>
+        <p>
+          SynaptoDeck's AI Builder uses MCP to <em>author</em>. You connect
+          Claude Desktop, Claude Code, Cursor, or Cline; AI proposes new
+          buttons and pages; SynaptoDeck validates each proposal; you approve
+          before anything lands on your deck.
+        </p>
+        <p>
+          Different jobs. Both can sit on the same machine.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-white/5 bg-ink-900/30">
+    <div class="container-page py-16">
+      <SectionHeading eyebrow="Side by side" title="What you get with each." />
+      <div class="mt-10">
+        <ComparisonTable theirName="Raycast" rows={rows} />
+      </div>
+      <p class="mt-4 text-xs text-ink-400">
+        Last reviewed against Raycast (macOS stable + Windows beta) and SynaptoDeck v0.88.x.
+      </p>
+    </div>
+  </section>
+
+  <section class="border-t border-white/5">
+    <div class="container-page py-16">
+      <div class="grid gap-8 md:grid-cols-2">
+        <div>
+          <h2 class="heading-3 text-ink-50">Where Raycast still wins</h2>
+          <ul class="prose-lite mt-5 space-y-3">
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-ink-300" />
+              <span><strong class="text-ink-100">Extensions.</strong> 2,000+ community extensions. Our recipe library is curated; their store is years ahead.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-ink-300" />
+              <span><strong class="text-ink-100">Keyboard-first depth.</strong> Snippets, clipboard history, file search, window management — Raycast does all of it from one shortcut.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-ink-300" />
+              <span><strong class="text-ink-100">AI chat inside the launcher.</strong> Pro users get GPT, Claude, and Perplexity in the command bar, with conversation history.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="heading-3 text-ink-50">Where SynaptoDeck wins</h2>
+          <ul class="prose-lite mt-5 space-y-3">
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+              <span><strong class="text-ink-100">AI builds your deck.</strong> MCP authoring with an approval inbox — not just a chat that answers questions.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+              <span><strong class="text-ink-100">Glanceable widgets.</strong> Calendar, CI, Sentry, Spotify, weather — visible next to your buttons without opening anything.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+              <span><strong class="text-ink-100">Mobile Remote.</strong> Pair by QR over LAN. Fire any button, switch any profile. No subscription, no App Store.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+              <span><strong class="text-ink-100">Inbound webhooks.</strong> Your deck receives alerts — CI, monitoring, Slack, smart-home — and surfaces them as toasts or modals.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+              <span><strong class="text-ink-100">Windows parity from day one.</strong> Same SynaptoDeck on both OSes — Raycast's Windows build is still in beta.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-white/5">
+    <div class="container-page py-20 text-center">
+      <h2 class="heading-2 text-ink-50">Try SynaptoDeck.</h2>
+      <p class="lead mx-auto mt-4 max-w-2xl">Free for personal use. Pair your phone in under a minute. Connect Claude over MCP and ask it to build the deck you want.</p>
+      <div class="mt-8 flex justify-center gap-3">
+        <a href="/download" class="btn-primary text-base">
+          <Icon name="lucide:download" class="h-4 w-4" />
+          <span>Download for free</span>
+        </a>
+        <a href="/ai-builder" class="btn-secondary text-base">
+          <span>How the AI Builder works</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

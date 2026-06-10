@@ -1,0 +1,43 @@
+# Cloudflare Pages — HTTP headers
+# Reference: https://developers.cloudflare.com/pages/configuration/headers/
+#
+# Order: most-specific first; CF Pages picks the FIRST matching rule.
+
+# Static asset bundles fingerprinted by Astro/Vite — immutable + long cache.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Brand SVGs + favicon — long cache, but not immutable (we may swap).
+/brand/*
+  Cache-Control: public, max-age=2592000
+
+# OpenGraph image — long cache.
+/og-default.png
+  Cache-Control: public, max-age=2592000
+
+# Inter Variable woff2s ship under /_assets too via the @fontsource import.
+/_assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Sitemap + RSS — let crawlers revalidate.
+/sitemap-index.xml
+  Cache-Control: public, max-age=3600
+/sitemap-0.xml
+  Cache-Control: public, max-age=3600
+/blog/rss.xml
+  Cache-Control: public, max-age=3600
+
+# robots.txt
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+# Everything else (HTML pages + the default) — security headers + short cache.
+# Pages picks this catch-all when no earlier rule matched.
+/*
+  Cache-Control: public, max-age=300, must-revalidate
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+  X-Frame-Options: DENY
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests

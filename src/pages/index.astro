@@ -21,9 +21,9 @@ const heroFeatures = HERO_IDS.map((id) => features.find((f) => f.id === id)!).fi
 
 <Base title="SynaptoDeck">
   <Hero
-    eyebrow="Programmable button deck for desktop + phone"
+    eyebrow="A programmable deck for your desktop and your phone"
     headline="AI builds your deck. You approve."
-    subheadline="SynaptoDeck is a button grid for your Mac and Windows desktop. Live-data widgets, a Mobile Remote PWA, and an inbox where AI proposes new buttons — you ship them when you're ready."
+    subheadline="SynaptoDeck is a button grid for your Mac and Windows desktop. Live widgets, a Mobile Remote you pair by QR, and an AI Builder that proposes buttons — you approve before they apply."
   />
 
   <!-- TOP FEATURES -->
@@ -82,7 +82,7 @@ const heroFeatures = HERO_IDS.map((id) => features.find((f) => f.id === id)!).fi
                 <span class="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-brand-cyan/10 text-xs font-semibold text-brand-cyan ring-1 ring-inset ring-brand-cyan/30">1</span>
                 <div>
                   <p class="text-sm font-medium text-ink-50">AI proposes</p>
-                  <p class="text-sm text-ink-300">A model calls <code class="rounded bg-white/[0.06] px-1.5 py-0.5 text-xs text-brand-cyan">propose_button</code> with a structured payload.</p>
+                  <p class="text-sm text-ink-300">A model calls <code class="rounded bg-white/[0.06] px-1.5 py-0.5 text-xs text-brand-cyan">propose_button</code> with the button spec.</p>
                 </div>
               </li>
               <li class="flex gap-4">
@@ -149,8 +149,8 @@ const heroFeatures = HERO_IDS.map((id) => features.find((f) => f.id === id)!).fi
             <div class="card flex items-start gap-3 p-5">
               <Icon name="lucide:smartphone" class="h-5 w-5 text-brand-cyan" />
               <div>
-                <p class="text-sm font-medium text-ink-50">PWA, not App Store</p>
-                <p class="mt-1 text-xs text-ink-300">Install from the browser. Works offline once cached.</p>
+                <p class="text-sm font-medium text-ink-50">No app store install</p>
+                <p class="mt-1 text-xs text-ink-300">Add to home screen. Works offline.</p>
               </div>
             </div>
             <div class="card flex items-start gap-3 p-5">
