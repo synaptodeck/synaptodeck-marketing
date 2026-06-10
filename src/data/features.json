@@ -117,6 +117,16 @@
       "icon": "Image"
     },
     {
+      "id": "per-profile-accent-color",
+      "name": "Per-profile accent colour",
+      "category": "core",
+      "status": "live",
+      "versionIntroduced": "v0.88.9",
+      "description": "accentColor field on AppDeckProfile; CSS variable override at deck wrapper.",
+      "marketingCopy": "Tint each profile with its own colour — blue for work, pink for streaming, green for dev. Glow, focus rings, hover states all match. Switch profiles, the whole deck repaints instantly.",
+      "icon": "Palette"
+    },
+    {
       "id": "global-hotkeys",
       "name": "Global hotkeys",
       "category": "core",
@@ -323,7 +333,7 @@
       "status": "live",
       "versionIntroduced": "v0.43.0",
       "description": "Sidecar exposes MCP tools to Claude Desktop / Cursor / Cline / Claude Code. AI proposes buttons + pages.",
-      "marketingCopy": "Connect Claude (or any MCP client) and ask it to build buttons for you. Every proposal lands in an inbox — you approve, AppDeck applies. AI never writes to your deck directly.",
+      "marketingCopy": "Connect Claude (or any MCP client) and ask it to build buttons for you. Every proposal lands in an inbox — you approve, SynaptoDeck applies. AI never writes to your deck directly.",
       "icon": "Sparkles"
     },
     {

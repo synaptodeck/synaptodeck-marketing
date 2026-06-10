@@ -1,18 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="SynaptoDeck">
-  <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" stroke="#5fbeff" stroke-width="2.5" stroke-linejoin="round" />
+<!-- v0.88.4 master app icon. Replaces the v0.88.2 cyan-outline-on-
+     transparent design that was invisible on the taskbar + faint on
+     desktop shortcuts.
+     Strategy: keep the visual language of the (user-approved) tray
+     icon — solid-filled dark-navy hex with bright cyan synaptic
+     details — but at 1024×1024 fidelity, with the synaptic
+     connection lines back in (they were stripped from the tray
+     variant for 16px legibility; at 32px+ they're the signature
+     "neural network" detail that makes the mark feel SynaptoDeck-
+     specific instead of just "another hexagon app").
+     This becomes the ONE icon for: desktop shortcut, taskbar pin,
+     Dock, installer, system tray (the tray-icon-32.png stays as a
+     simpler variant for the 16-24px size class). All other surfaces
+     get this design via the tauri-icon-generated pack. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" shape-rendering="geometricPrecision">
+  <!-- (1) Filled hexagon body — deep navy #0b1d3d.
+       This is the load-bearing colour: dark mass that survives on
+       light wallpapers, white desktops, and mid-tone backgrounds
+       (the failure mode of v0.88.2). Slightly darker than the
+       tray-icon variant (#0b1d3d vs same) so it punches as the
+       primary brand colour at large sizes. -->
+  <polygon
+    points="128,32 211.14,80 211.14,176 128,224 44.86,176 44.86,80"
+    fill="#0b1d3d"
+  />
+
+  <!-- (2) Cyan rim — adds a "lit" edge that signals the icon as
+       active / electric, ties it back to the cyan brand palette
+       even though the body is dark navy.
+       v0.88.7 — Bumped 2.5 -> 8 because the v0.88.4 thinner stroke
+       (0.16px @ 16x16) was effectively invisible on Windows taskbar
+       pins. At 8px on a 256 viewBox, the rim renders as ~0.5px at
+       16x16 — finally legible — while at 256x256 it reads as a
+       confident accent (~1.5% of icon edge) rather than a hairline. -->
+  <polygon
+    points="128,32 211.14,80 211.14,176 128,224 44.86,176 44.86,80"
+    fill="none"
+    stroke="#5fbeff"
+    stroke-width="8"
+    stroke-linejoin="miter"
+    stroke-miterlimit="6"
+  />
+
+  <!-- (3) Synaptic connection lines — bright cyan at moderate opacity.
+       v0.88.7 — Bumped stroke 1.5 -> 3, opacity 0.6 -> 0.75 so the
+       lines survive the downsample. At 16x16 they blur into texture
+       rather than disappearing; at 1024x1024 they're slightly more
+       visible than before (acceptable — they ARE the brand mark). -->
+  <g
+    stroke="#5fbeff"
+    stroke-width="3"
+    stroke-linecap="square"
+    opacity="0.75"
+    fill="none"
+  >
+    <line x1="92" y1="92" x2="164" y2="92"/>
+    <line x1="92" y1="92" x2="82" y2="140"/>
+    <line x1="164" y1="92" x2="174" y2="140"/>
+    <line x1="92" y1="92" x2="128" y2="178"/>
+    <line x1="164" y1="92" x2="128" y2="178"/>
+    <line x1="82" y1="140" x2="128" y2="178"/>
+    <line x1="174" y1="140" x2="128" y2="178"/>
+  </g>
+
+  <!-- (4) Four satellite synaptic nodes — bright cyan solid fills.
+       v0.88.7 — r=5 -> r=8 so they're visible at the small sizes
+       Windows uses for taskbar/pin (16-32px). Adds about 2px of
+       diameter at the 1024 master level — barely noticeable on
+       desktop shortcut sizes but the difference between visible
+       and invisible on the taskbar. -->
   <g fill="#5fbeff">
-    <circle cx="22" cy="22" r="2.2" opacity="0.85" />
-    <circle cx="42" cy="22" r="2.2" opacity="0.85" />
-    <circle cx="22" cy="42" r="2.2" opacity="0.6" />
-    <circle cx="42" cy="42" r="2.2" opacity="0.6" />
-    <circle cx="32" cy="32" r="3.2" />
-    <circle cx="32" cy="54" r="2.5" />
+    <circle cx="92" cy="92" r="8"/>
+    <circle cx="164" cy="92" r="8"/>
+    <circle cx="82" cy="140" r="8"/>
+    <circle cx="174" cy="140" r="8"/>
   </g>
-  <g stroke="#5fbeff" stroke-width="1" opacity="0.55">
-    <line x1="22" y1="22" x2="32" y2="32" />
-    <line x1="42" y1="22" x2="32" y2="32" />
-    <line x1="22" y1="42" x2="32" y2="32" />
-    <line x1="42" y1="42" x2="32" y2="32" />
-  </g>
-  <line x1="32" y1="32" x2="32" y2="54" stroke="#5fbeff" stroke-width="1.6" />
+
+  <!-- (5) Hub command node — brightest cyan-white, dominant focal point.
+       v0.88.7 — r=8 -> r=14 with an inner brighter core (r=6, near-
+       white) so the focal point survives every downsample. The user
+       said the previous v0.88.4 hub was visible but "small icons still
+       look faint" — boosting the hub gives every render a guaranteed
+       bright spot that catches the eye. -->
+  <circle cx="128" cy="178" r="14" fill="#c6e9ff"/>
+  <circle cx="128" cy="178" r="6" fill="#ffffff"/>
 </svg>

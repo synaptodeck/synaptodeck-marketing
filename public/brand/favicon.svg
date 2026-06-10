@@ -1,6 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="6" fill="#0b1d3d" />
-  <polygon points="16,5 26,11 26,21 16,27 6,21 6,11" stroke="#5fbeff" stroke-width="1.6" stroke-linejoin="round" />
-  <circle cx="16" cy="16" r="1.8" fill="#5fbeff" />
-  <line x1="16" y1="16" x2="16" y2="24" stroke="#5fbeff" stroke-width="1.2" />
+<!-- v0.88.3 tray-specific icon. Diverges from the main brand icon
+     because tray surfaces are HOSTILE: Windows 11 light tray flyout
+     is near-white, dark mode tray is near-black, and the icon
+     renders at 16-24px. The main brand icon (cyan outline on
+     transparent) was invisible on the light tray.
+     This variant solves it with: SOLID filled hexagon in deep navy
+     (max contrast on white tray; on dark tray the silhouette fades
+     but still has shape mass) + bright cyan inner dots that punch
+     through on either background. The synaptic connection lines are
+     omitted — they'd be sub-pixel noise at 16px.
+     Single SVG, no filters, no gradients. resvg renders this crisply
+     at 16/24/32 with no antialiasing surprises. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="geometricPrecision">
+  <!-- Filled hexagon. Vertices computed from cx=16, cy=16, r=14:
+         top         : (16, 2)
+         top-right   : (28.12, 9)
+         bottom-right: (28.12, 23)
+         bottom      : (16, 30)
+         bottom-left : (3.88, 23)
+         top-left    : (3.88, 9)
+       Deep navy #0b1d3d matches the wordmark colour for the
+       light-bg logo variant — keeps the brand colour story coherent. -->
+  <polygon
+    points="16,2 28.12,9 28.12,23 16,30 3.88,23 3.88,9"
+    fill="#0b1d3d"
+  />
+
+  <!-- 4 satellite synaptic nodes in bright cyan #5fbeff (same colour
+       as the dark-bg main icon, so the brand cyan still reads even
+       though the carrier is dark). r=1.5 produces visible dots at
+       every tray size from 16 up. -->
+  <g fill="#5fbeff">
+    <circle cx="11.5" cy="11.5" r="1.5"/>
+    <circle cx="20.5" cy="11.5" r="1.5"/>
+    <circle cx="10.25" cy="17.5" r="1.5"/>
+    <circle cx="21.75" cy="17.5" r="1.5"/>
+  </g>
+
+  <!-- Hub command node — slightly larger (r=2.25) + brighter
+       cyan-white #c6e9ff to make it the obvious focal point. Same
+       semantic as the main icon (bottom-centre node = the command). -->
+  <circle cx="16" cy="22.5" r="2.25" fill="#c6e9ff"/>
 </svg>
