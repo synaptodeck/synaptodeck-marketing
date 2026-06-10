@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#06101f" />
+      <stop offset="100%" stop-color="#0b1d3d" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="0%" r="80%">
+      <stop offset="0%" stop-color="#5fbeff" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#0b1d3d" stop-opacity="0" />
+    </radialGradient>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="0.5" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#bg)" />
+  <rect width="1200" height="900" fill="url(#glow)" />
+
+  <!-- mock chrome / window bar -->
+  <g transform="translate(80 70)">
+    <rect width="1040" height="48" rx="10" fill="#152a55" opacity="0.45" />
+    <circle cx="24" cy="24" r="6" fill="#ff6b6b" opacity="0.6" />
+    <circle cx="46" cy="24" r="6" fill="#f5c560" opacity="0.6" />
+    <circle cx="68" cy="24" r="6" fill="#62d6a3" opacity="0.6" />
+    <rect x="450" y="14" width="140" height="20" rx="6" fill="#0b1d3d" opacity="0.5" />
+  </g>
+
+  <!-- left sidebar (profiles) -->
+  <g transform="translate(80 140)">
+    <rect width="180" height="700" rx="14" fill="#152a55" opacity="0.4" />
+    <g font-family="Inter, system-ui, sans-serif">
+      <text x="22" y="46" font-size="12" fill="#a0b7d8" letter-spacing="2" font-weight="600">PROFILES</text>
+      <g transform="translate(14 70)">
+        <rect width="152" height="44" rx="10" fill="#5fbeff" opacity="0.15" />
+        <text x="18" y="28" font-size="14" fill="#f1f5fb" font-weight="600">SYNAPTO</text>
+      </g>
+      <g transform="translate(14 122)" opacity="0.7">
+        <rect width="152" height="44" rx="10" fill="#0b1d3d" />
+        <text x="18" y="28" font-size="14" fill="#cdd9eb">DEV</text>
+      </g>
+      <g transform="translate(14 174)" opacity="0.55">
+        <rect width="152" height="44" rx="10" fill="#0b1d3d" />
+        <text x="18" y="28" font-size="14" fill="#a0b7d8">STREAM</text>
+      </g>
+      <g transform="translate(14 226)" opacity="0.45">
+        <rect width="152" height="44" rx="10" fill="#0b1d3d" />
+        <text x="18" y="28" font-size="14" fill="#a0b7d8">HOME</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- main deck grid: 5 cols × 3 rows of buttons + 1 calendar widget -->
+  <g transform="translate(290 140)">
+    <rect width="830" height="700" rx="14" fill="#0b1d3d" opacity="0.45" />
+
+    <!-- row 1 -->
+    <g transform="translate(30 30)">
+      <rect width="140" height="140" rx="14" fill="#1e64c9" opacity="0.32" />
+      <circle cx="70" cy="60" r="22" fill="none" stroke="#5fbeff" stroke-width="3" />
+      <circle cx="70" cy="60" r="6" fill="#5fbeff" />
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">Spotify</text>
+    </g>
+    <g transform="translate(190 30)">
+      <rect width="140" height="140" rx="14" fill="#152a55" opacity="0.7" />
+      <g transform="translate(46 36) scale(2)">
+        <path d="M12 0a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2c-3.34.73-4.04-1.4-4.04-1.4-.55-1.38-1.33-1.75-1.33-1.75-1.09-.75.08-.74.08-.74 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.23-3.22-.12-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.62-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 0z" fill="#5fbeff" opacity="0.85" />
+      </g>
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">GitHub</text>
+    </g>
+    <g transform="translate(350 30)">
+      <rect width="140" height="140" rx="14" fill="#152a55" opacity="0.55" />
+      <g transform="translate(48 36)" fill="#5fbeff" opacity="0.9">
+        <rect x="6" y="12" width="32" height="6" rx="2" />
+        <rect x="12" y="22" width="20" height="6" rx="2" />
+        <rect x="6" y="32" width="36" height="6" rx="2" />
+      </g>
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">Slack</text>
+    </g>
+    <g transform="translate(510 30)">
+      <rect width="140" height="140" rx="14" fill="#152a55" opacity="0.55" />
+      <g transform="translate(38 30)" fill="#5fbeff" opacity="0.9">
+        <rect width="64" height="44" rx="6" fill="none" stroke="#5fbeff" stroke-width="2.5" />
+        <text x="10" y="28" font-family="ui-monospace, monospace" font-size="13" fill="#5fbeff">&gt;_</text>
+      </g>
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">Terminal</text>
+    </g>
+    <g transform="translate(670 30)">
+      <!-- Spotify Now Playing strip widget (2 cols) -->
+      <rect width="140" height="140" rx="14" fill="#0b1d3d" opacity="0.85" />
+      <rect x="14" y="14" width="44" height="44" rx="6" fill="#5fbeff" opacity="0.6" />
+      <g transform="translate(64 22)">
+        <rect width="60" height="6" rx="2" fill="#f1f5fb" opacity="0.85" />
+        <rect y="14" width="44" height="5" rx="2" fill="#a0b7d8" opacity="0.7" />
+      </g>
+      <g transform="translate(20 80)" fill="#cdd9eb">
+        <polygon points="0,0 12,7 0,14" />
+        <rect x="22" y="3" width="2" height="8" />
+        <rect x="28" y="3" width="2" height="8" />
+        <polygon points="50,0 38,7 50,14" />
+        <polygon points="68,0 80,7 68,14" />
+        <rect x="84" y="3" width="2" height="8" />
+        <rect x="90" y="3" width="2" height="8" />
+      </g>
+    </g>
+
+    <!-- row 2 -->
+    <g transform="translate(30 190)">
+      <rect width="140" height="140" rx="14" fill="#152a55" opacity="0.55" />
+      <g transform="translate(40 30)" fill="#5fbeff" opacity="0.9">
+        <circle cx="30" cy="30" r="26" fill="none" stroke="#5fbeff" stroke-width="2.5" />
+        <line x1="30" y1="30" x2="30" y2="12" stroke="#5fbeff" stroke-width="2.5" />
+        <line x1="30" y1="30" x2="42" y2="38" stroke="#5fbeff" stroke-width="2.5" />
+      </g>
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">10:42</text>
+    </g>
+    <g transform="translate(190 190)">
+      <rect width="140" height="140" rx="14" fill="#152a55" opacity="0.55" />
+      <g transform="translate(40 36)" fill="#5fbeff" opacity="0.9">
+        <circle cx="22" cy="22" r="8" />
+        <circle cx="42" cy="32" r="12" />
+        <path d="M5 50 q15 -12 30 -4 t30 0" fill="none" stroke="#5fbeff" stroke-width="2.5" />
+      </g>
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">21° Sunny</text>
+    </g>
+    <g transform="translate(350 190)">
+      <rect width="140" height="140" rx="14" fill="#152a55" opacity="0.55" />
+      <text x="70" y="48" text-anchor="middle" font-family="ui-monospace, monospace" font-size="22" fill="#5fbeff" font-weight="700">TSLA</text>
+      <text x="70" y="76" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#f1f5fb" font-weight="600">$248.12</text>
+      <text x="70" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#62d6a3" font-weight="600">+2.4%</text>
+    </g>
+    <g transform="translate(510 190)">
+      <rect width="140" height="140" rx="14" fill="#1e64c9" opacity="0.32" />
+      <g transform="translate(48 32)">
+        <rect width="44" height="44" rx="8" fill="#5fbeff" opacity="0.18" />
+        <text x="22" y="30" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" fill="#5fbeff" font-weight="700">▶</text>
+      </g>
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">Workflow</text>
+    </g>
+    <g transform="translate(670 190)">
+      <!-- Calendar widget -->
+      <rect width="140" height="140" rx="14" fill="#152a55" opacity="0.55" />
+      <text x="14" y="32" font-family="Inter, sans-serif" font-size="11" fill="#a0b7d8" letter-spacing="1.5">NEXT</text>
+      <text x="14" y="58" font-family="Inter, sans-serif" font-size="14" fill="#f1f5fb" font-weight="600">Sprint review</text>
+      <text x="14" y="80" font-family="Inter, sans-serif" font-size="13" fill="#5fbeff">in 14 min</text>
+      <text x="14" y="116" font-family="Inter, sans-serif" font-size="11" fill="#a0b7d8" letter-spacing="1.5">THEN</text>
+      <text x="14" y="132" font-family="Inter, sans-serif" font-size="12" fill="#cdd9eb">1:1 with Jamie</text>
+    </g>
+
+    <!-- row 3 -->
+    <g transform="translate(30 350)">
+      <rect width="140" height="140" rx="14" fill="#152a55" opacity="0.55" />
+      <g transform="translate(46 36)" fill="#5fbeff" opacity="0.9">
+        <rect x="0" y="14" width="14" height="32" rx="3" />
+        <rect x="20" y="6" width="14" height="40" rx="3" />
+        <rect x="40" y="20" width="14" height="26" rx="3" />
+      </g>
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">CI Status</text>
+    </g>
+    <g transform="translate(190 350)">
+      <rect width="140" height="140" rx="14" fill="#152a55" opacity="0.55" />
+      <g transform="translate(40 32)" fill="#5fbeff" opacity="0.9">
+        <rect width="60" height="40" rx="6" fill="none" stroke="#5fbeff" stroke-width="2.5" />
+        <circle cx="30" cy="20" r="5" />
+      </g>
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">Notion</text>
+    </g>
+    <g transform="translate(350 350)">
+      <rect width="140" height="140" rx="14" fill="#1e64c9" opacity="0.32" />
+      <g transform="translate(40 32)" fill="#5fbeff">
+        <path d="M14 22 a18 18 0 1 1 36 0 c0 12 -10 22 -18 22 s-18 -10 -18 -22z" opacity="0.85" />
+        <circle cx="32" cy="20" r="4" fill="#0b1d3d" />
+      </g>
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">AI Builder</text>
+    </g>
+    <g transform="translate(510 350)">
+      <rect width="140" height="140" rx="14" fill="#152a55" opacity="0.55" />
+      <g transform="translate(46 36)" fill="#5fbeff">
+        <rect width="48" height="32" rx="6" fill="none" stroke="#5fbeff" stroke-width="2.5" />
+        <line x1="24" y1="32" x2="24" y2="44" stroke="#5fbeff" stroke-width="2.5" />
+        <line x1="10" y1="44" x2="38" y2="44" stroke="#5fbeff" stroke-width="2.5" />
+      </g>
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">Stream OBS</text>
+    </g>
+    <g transform="translate(670 350)">
+      <rect width="140" height="140" rx="14" fill="#152a55" opacity="0.55" />
+      <g transform="translate(46 36)" fill="#5fbeff" opacity="0.85">
+        <rect width="48" height="32" rx="6" />
+        <circle cx="24" cy="48" r="4" fill="#0b1d3d" />
+      </g>
+      <text x="70" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#f1f5fb" font-weight="600">Mobile Pair</text>
+    </g>
+
+    <!-- bottom paging dots -->
+    <g transform="translate(380 670)" fill="#5fbeff">
+      <circle cx="0" cy="0" r="4" />
+      <circle cx="18" cy="0" r="4" opacity="0.4" />
+      <circle cx="36" cy="0" r="4" opacity="0.4" />
+    </g>
+  </g>
+
+  <!-- placeholder label -->
+  <g transform="translate(80 860)">
+    <text font-family="Inter, system-ui, sans-serif" font-size="11" fill="#7191c4" letter-spacing="2" font-weight="600">PLACEHOLDER · SWAP WITH /screenshots/hero-deck.png · SPEC IN /screenshots/README.md</text>
+  </g>
+</svg>

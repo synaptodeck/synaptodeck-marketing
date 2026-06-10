@@ -1,0 +1,62 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+
+const channels = [
+  {
+    icon: 'lucide:github',
+    title: 'Open an issue',
+    description: 'For bugs and feature requests. The fastest route into the backlog.',
+    href: 'https://github.com/synaptodeck/synaptodeck/issues/new/choose',
+    cta: 'Open an issue',
+  },
+  {
+    icon: 'lucide:message-circle',
+    title: 'Report from inside the app',
+    description: '"Report a Problem" or "Ask SynaptoDeck to Learn This" — your message becomes a GitHub issue with the right context attached.',
+    href: '/docs',
+    cta: 'How it works',
+  },
+  {
+    icon: 'lucide:git-pull-request',
+    title: 'Send a PR',
+    description: 'We accept patches. The repo includes a CONTRIBUTING.md and a tight CI loop.',
+    href: 'https://github.com/synaptodeck/synaptodeck/pulls',
+    cta: 'See open PRs',
+  },
+];
+---
+
+<Base
+  title="Feedback"
+  description="Stuck? Wish something existed? Open an issue, send a PR, or use the in-app feedback channel."
+>
+  <section class="container-page py-20 md:py-28">
+    <SectionHeading
+      eyebrow="Feedback"
+      title="Tell us what's broken or what's missing."
+      description="The fastest path to a fix is a GitHub issue. The fastest path to a built feature is the in-app feedback channel — it captures the right context automatically."
+    />
+
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {
+        channels.map((c) => (
+          <a href={c.href} rel={c.href.startsWith('http') ? 'noopener' : undefined} class="card group flex flex-col gap-4 p-6 transition hover:bg-white/[0.04]">
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan ring-1 ring-inset ring-brand-cyan/20">
+              <Icon name={c.icon} class="h-5 w-5" />
+            </span>
+            <div>
+              <h3 class="text-base font-semibold text-ink-50">{c.title}</h3>
+              <p class="prose-lite mt-2 text-sm">{c.description}</p>
+            </div>
+            <span class="mt-auto inline-flex items-center gap-1.5 text-sm font-medium text-brand-cyan">
+              {c.cta}
+              <Icon name="lucide:arrow-right" class="h-4 w-4 transition group-hover:translate-x-0.5" />
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Base>

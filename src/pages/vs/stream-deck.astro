@@ -1,0 +1,186 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../../layouts/Base.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
+
+const rows = [
+  {
+    capability: 'Hardware required',
+    ours: false,
+    theirs: 'Stream Deck device ($50–$350) for the full experience',
+    note: 'Stream Deck Mobile exists but caps at 6 keys on the free tier.',
+  },
+  {
+    capability: 'Cross-platform desktop',
+    ours: 'Windows + macOS, parity',
+    theirs: 'Windows + macOS, parity',
+  },
+  {
+    capability: 'Phone-as-remote',
+    ours: 'Free PWA over LAN, pair by QR, no account',
+    theirs: 'Stream Deck Mobile (subscription for unlimited keys)',
+  },
+  {
+    capability: 'Plugin / extension marketplace',
+    ours: 'Curated recipes (SDK on the roadmap)',
+    theirs: '1000+ community plugins',
+    note: 'Their plugin ecosystem is years ahead. Our recipes catalog will close part of this gap; an SDK is the longer arc.',
+  },
+  {
+    capability: 'MCP support',
+    ours: 'Authoring — AI proposes new buttons, you approve before they apply',
+    theirs: 'Execute — AI fires existing buttons',
+    note: 'Different use cases. Theirs is faster for live ops; ours is safer for build-time.',
+  },
+  {
+    capability: 'Live-data widgets on the grid',
+    ours: 'Clock, weather, calendar, stock, CI status, Sentry, Spotify, custom HTTP',
+    theirs: 'Limited (Stream Deck XL touchscreen elements; not full widget grid)',
+  },
+  {
+    capability: 'Workflow chains in one button',
+    ours: 'Sequence of actions with delays + stop-on-error',
+    theirs: 'Multi-action sequences',
+  },
+  {
+    capability: 'Animated GIF / video button icons',
+    ours: false,
+    theirs: true,
+    note: 'On our roadmap; ~6h of work per competitive research.',
+  },
+  {
+    capability: 'Smart Profiles (app-aware page switching)',
+    ours: 'Planned for v0.89.x',
+    theirs: true,
+  },
+  {
+    capability: 'Local-first / no cloud account',
+    ours: true,
+    theirs: 'Cloud sync via Elgato account',
+  },
+  {
+    capability: 'Free for personal use, no caps',
+    ours: true,
+    theirs: 'Software free; hardware + Mobile sub for the full feature set',
+  },
+];
+---
+
+<Base
+  title="SynaptoDeck vs Stream Deck"
+  description="An honest comparison: cross-platform parity, MCP authoring vs executing, mobile remote, pricing. Where Stream Deck wins. Where SynaptoDeck wins."
+>
+  <section class="container-page py-20 md:py-28">
+    <span class="eyebrow">vs Stream Deck</span>
+    <h1 class="heading-1 mt-4 max-w-4xl text-ink-50">SynaptoDeck vs Elgato Stream Deck.</h1>
+    <p class="lead mt-6 max-w-3xl">
+      Both ship a programmable deck for Windows and macOS. Both work with AI
+      over MCP. Where they diverge is hardware, marketplace depth, and what
+      "AI controls your deck" actually means.
+    </p>
+  </section>
+
+  <section class="border-t border-white/5 bg-ink-900/30">
+    <div class="container-page py-16">
+      <SectionHeading
+        eyebrow="The headline difference"
+        title="Two MCP integrations. Two different use cases."
+      />
+      <div class="prose-lite mt-6 max-w-3xl space-y-4">
+        <p>
+          Stream Deck 7.4 ships MCP support — Claude, ChatGPT, and Google's
+          G-Assist can fire existing Stream Deck actions. That's <em>execute-only</em>:
+          your buttons already exist, AI just runs them.
+        </p>
+        <p>
+          SynaptoDeck's MCP is <em>authoring</em>. AI proposes new buttons and
+          new pages; the proposal lands in your inbox; you approve, edit, or
+          reject before anything touches your deck.
+        </p>
+        <p>
+          Both have a place. If you've already built a Stream Deck and want a
+          shortcut layer, theirs is fast. If you're building a deck or
+          expanding one, ours has the safety story.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-white/5">
+    <div class="container-page py-16">
+      <SectionHeading eyebrow="Side by side" title="What you get with each." />
+      <div class="mt-10">
+        <ComparisonTable theirName="Stream Deck" rows={rows} />
+      </div>
+      <p class="mt-4 text-xs text-ink-400">
+        Last reviewed against Stream Deck v7.4 and SynaptoDeck v0.88.x.
+      </p>
+    </div>
+  </section>
+
+  <section class="border-t border-white/5 bg-ink-900/30">
+    <div class="container-page py-16">
+      <div class="grid gap-8 md:grid-cols-2">
+        <div>
+          <h2 class="heading-3 text-ink-50">Where Stream Deck still wins</h2>
+          <ul class="prose-lite mt-5 space-y-3">
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-ink-300" />
+              <span><strong class="text-ink-100">Hardware.</strong> Real physical buttons with feedback. If you stream professionally, the LCD keys are still the gold standard.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-ink-300" />
+              <span><strong class="text-ink-100">Plugin ecosystem.</strong> 1000+ community plugins. Our recipe library is curated; their plugin marketplace is years ahead.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-ink-300" />
+              <span><strong class="text-ink-100">Animated icons.</strong> GIF + video icons on Stream Deck XL look great. We don't ship this yet.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="heading-3 text-ink-50">Where SynaptoDeck wins</h2>
+          <ul class="prose-lite mt-5 space-y-3">
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+              <span><strong class="text-ink-100">AI authoring with approval.</strong> Build buttons from a chat, but never lose control of what lands on the deck.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+              <span><strong class="text-ink-100">Mobile Remote is free.</strong> Pair by QR over your LAN. No App Store install, no subscription, no cap on the number of buttons.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+              <span><strong class="text-ink-100">Local-first.</strong> No account. No cloud sync until you ask for it. Audit log records every fire.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+              <span><strong class="text-ink-100">Live widgets on the same grid.</strong> Clock, weather, calendar, CI status, Spotify Now Playing, custom HTTP — all next to your buttons.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+              <span><strong class="text-ink-100">No hardware required.</strong> Free for personal use. Bring your existing keyboard + screen.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-white/5">
+    <div class="container-page py-20 text-center">
+      <h2 class="heading-2 text-ink-50">Try SynaptoDeck.</h2>
+      <p class="lead mx-auto mt-4 max-w-2xl">Free for personal use. Pair your phone in under a minute. Connect Claude over MCP and ask it to build the deck you want.</p>
+      <div class="mt-8 flex justify-center gap-3">
+        <a href="/download" class="btn-primary text-base">
+          <Icon name="lucide:download" class="h-4 w-4" />
+          <span>Download for free</span>
+        </a>
+        <a href="/ai-builder" class="btn-secondary text-base">
+          <span>How the AI Builder works</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,49 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+
+// v1: link out to GitHub Releases until the release-notes sync ships.
+// v1.1: import structured release notes from src/data/release-notes.json
+// (populated by scripts/sync-release-notes.mjs against the main repo).
+---
+
+<Base
+  title="Changelog"
+  description="SynaptoDeck release notes."
+>
+  <section class="container-page py-20 md:py-28">
+    <SectionHeading
+      eyebrow="Changelog"
+      title="What's new."
+      description="Every release is tagged in GitHub with notes and signed binaries. We'll mirror the notes here once the source-of-truth sync lands."
+    />
+
+    <div class="mt-12 max-w-2xl space-y-4">
+      <a
+        href="https://github.com/synaptodeck/synaptodeck/releases"
+        rel="noopener"
+        class="card group flex items-center gap-4 p-6 transition hover:bg-white/[0.05]"
+      >
+        <span class="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan ring-1 ring-inset ring-brand-cyan/20">
+          <Icon name="lucide:github" class="h-5 w-5" />
+        </span>
+        <div class="flex-1">
+          <p class="text-base font-semibold text-ink-50">All releases on GitHub</p>
+          <p class="mt-1 text-sm text-ink-300">Notes, signed installers, and SHA256SUMS for every tag.</p>
+        </div>
+        <Icon name="lucide:arrow-right" class="h-5 w-5 text-ink-300 transition group-hover:translate-x-0.5 group-hover:text-brand-cyan" />
+      </a>
+
+      <div class="card p-6">
+        <p class="text-sm text-ink-300">
+          The plan: <code class="rounded bg-white/[0.06] px-1 text-brand-cyan">scripts/sync-release-notes.mjs</code> pulls
+          <code class="rounded bg-white/[0.06] px-1 text-brand-cyan">src/services/releaseNotes.ts</code> from the main
+          repo at build time. This page renders the parsed entries here. The
+          script is wired and runnable now; we flip the page to read it once the
+          format is stable.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

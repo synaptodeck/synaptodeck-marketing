@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SynaptoDeck Features Manifest",
+  "description": "Single source of truth for the SynaptoDeck feature inventory. Edited in the same commit as the code change. Marketing site fetches this and regenerates on every build.",
+  "type": "object",
+  "required": ["categories", "features"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "_doc": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Free-form maintainer notes; not consumed by the marketing site."
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "tagline", "displayOrder"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+          "name": { "type": "string" },
+          "tagline": { "type": "string" },
+          "displayOrder": { "type": "integer" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "category", "status", "description", "marketingCopy", "icon"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "description": "Stable kebab-case identifier. Used as URL fragment, render key, and the join key to screenshots/<id>.png. Never change — if a feature is replaced, retire the old id + add a new one."
+          },
+          "name": {
+            "type": "string",
+            "description": "User-facing display name. Title-case. ≤ 60 chars."
+          },
+          "category": {
+            "type": "string",
+            "description": "Must match one of categories[].id."
+          },
+          "status": {
+            "enum": ["live", "beta", "planned", "deprecated"],
+            "description": "live = shipped in current version. beta = behind a flag. planned = on the roadmap. deprecated = still rendered but with a sunset note."
+          },
+          "versionIntroduced": {
+            "type": "string",
+            "pattern": "^v\\d+\\.\\d+\\.\\d+",
+            "description": "The release tag that introduced this feature. Required for status=live/beta/deprecated."
+          },
+          "plannedVersion": {
+            "type": "string",
+            "description": "Target version for status=planned. Free-form (e.g. 'v0.89.x' or 'TBD')."
+          },
+          "description": {
+            "type": "string",
+            "description": "One-line internal description — what it does technically. For maintainers reading the manifest, not for marketing display."
+          },
+          "marketingCopy": {
+            "type": "string",
+            "description": "1-2 sentence user-facing copy. The marketing site renders this as the feature card body. Conversational tone, what-it-gives-you not what-it-is. Reference SynaptoDeck by name where natural."
+          },
+          "icon": {
+            "type": "string",
+            "description": "lucide-react icon component name (e.g. 'Sparkles', 'Keyboard'). The marketing site imports and renders these dynamically."
+          },
+          "screenshot": {
+            "type": "string",
+            "description": "Optional path to a screenshot (relative to the marketing site's public/ dir). The marketing site renders the screenshot above marketingCopy if the file exists."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

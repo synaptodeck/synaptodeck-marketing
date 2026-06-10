@@ -1,0 +1,80 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  variant?: 'cards' | 'compact';
+}
+
+const { variant = 'cards' } = Astro.props;
+
+// Pointed at the main repo's GitHub Releases. The maintainer can swap this for
+// a CDN/release-mirror URL once the auto-updater feed is unified.
+const RELEASES = 'https://github.com/synaptodeck/synaptodeck/releases/latest';
+
+const platforms = [
+  {
+    id: 'windows',
+    label: 'Windows',
+    sub: 'Windows 10 + 11 · x64',
+    icon: 'lucide:monitor',
+    href: `${RELEASES}#windows`,
+  },
+  {
+    id: 'mac',
+    label: 'macOS',
+    sub: 'macOS 13+ · Apple Silicon',
+    icon: 'lucide:apple',
+    href: `${RELEASES}#macos`,
+  },
+];
+---
+
+{
+  variant === 'cards' ? (
+    <div class="grid gap-4 md:grid-cols-2">
+      {platforms.map((p) => (
+        <a
+          href={p.href}
+          rel="noopener"
+          class="card group flex items-center gap-4 p-5 transition hover:bg-white/[0.05]"
+          data-platform={p.id}
+        >
+          <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-cyan/10 text-brand-cyan ring-1 ring-inset ring-brand-cyan/20">
+            <Icon name={p.icon} class="h-6 w-6" />
+          </span>
+          <div class="flex-1">
+            <p class="text-base font-semibold text-ink-50">Download for {p.label}</p>
+            <p class="text-sm text-ink-300">{p.sub}</p>
+          </div>
+          <Icon
+            name="lucide:arrow-right"
+            class="h-5 w-5 text-ink-300 transition group-hover:translate-x-0.5 group-hover:text-brand-cyan"
+          />
+        </a>
+      ))}
+    </div>
+  ) : (
+    <div class="flex flex-wrap gap-3">
+      {platforms.map((p) => (
+        <a href={p.href} rel="noopener" class="btn-secondary text-sm" data-platform={p.id}>
+          <Icon name={p.icon} class="h-4 w-4" />
+          <span>{p.label}</span>
+        </a>
+      ))}
+    </div>
+  )
+}
+
+<script>
+  // Best-effort OS hint: highlight the matching card so the user spots it first.
+  const ua = navigator.userAgent.toLowerCase();
+  const isMac = /mac|iphone|ipad/.test(ua);
+  const cards = document.querySelectorAll<HTMLAnchorElement>('a[data-platform]');
+  cards.forEach((card) => {
+    const platform = card.dataset.platform;
+    const matches = (isMac && platform === 'mac') || (!isMac && platform === 'windows');
+    if (matches) {
+      card.classList.add('ring-brand-cyan/40', 'bg-white/[0.04]');
+    }
+  });
+</script>

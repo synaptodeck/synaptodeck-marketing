@@ -1,0 +1,88 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+
+const pillars = [
+  {
+    icon: 'lucide:hard-drive',
+    title: 'Local-first',
+    body: "Your deck config, your secrets, your audit log — all live on your machine. SynaptoDeck doesn't require an account and doesn't sync to our servers unless you opt into a future Pro feature.",
+  },
+  {
+    icon: 'lucide:key-round',
+    title: 'Secrets stay in the OS keychain',
+    body: 'API keys are stored in Windows Credential Manager or macOS Keychain. They sit there encrypted and only get substituted at fire time. AI never sees the values.',
+  },
+  {
+    icon: 'lucide:scroll-text',
+    title: 'Every action is audited',
+    body: 'Audit log records every fire — when it happened, what triggered it, what the result was. Filter by source, export to CSV. Indispensable when a webhook misbehaves.',
+  },
+  {
+    icon: 'lucide:shield-check',
+    title: 'AI builds, you approve',
+    body: 'The AI Builder cannot fire buttons. It can only propose them. Every proposal goes through your inbox first. No "AI just deleted my deck" stories here.',
+  },
+  {
+    icon: 'lucide:bug',
+    title: 'Crash reporting is opt-in',
+    body: "Sentry integration is off by default. If you turn it on, we scrub PII before anything goes to the service. You can revoke at any time.",
+  },
+  {
+    icon: 'lucide:lock',
+    title: 'Signed releases',
+    body: 'Every installer is signed with minisign. The signature lives next to the binary in GitHub Releases — you can verify before installing.',
+  },
+];
+---
+
+<Base
+  title="Security & privacy"
+  description="SynaptoDeck is local-first. Secrets live in your OS keychain. The AI Builder cannot fire buttons. Crash reporting is opt-in."
+>
+  <section class="container-page py-20 md:py-28">
+    <SectionHeading
+      eyebrow="Security & privacy"
+      title="Your deck, your machine, your call."
+      description="Six promises we make. Each one is either a code-level invariant or an explicit user-consent gate."
+    />
+    <div class="mt-12 grid gap-5 md:grid-cols-2">
+      {
+        pillars.map((p) => (
+          <div class="card flex gap-4 p-6">
+            <span class="inline-flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan ring-1 ring-inset ring-brand-cyan/20">
+              <Icon name={p.icon} class="h-5 w-5" />
+            </span>
+            <div>
+              <h3 class="text-base font-semibold text-ink-50">{p.title}</h3>
+              <p class="prose-lite mt-2 text-sm">{p.body}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="border-t border-white/5 bg-ink-900/30">
+    <div class="container-page py-20 md:py-28">
+      <h2 class="heading-3 text-ink-50">What we collect</h2>
+      <div class="prose-lite mt-6 space-y-4">
+        <p><strong class="text-ink-100">By default:</strong> nothing. SynaptoDeck does not phone home.</p>
+        <p>
+          <strong class="text-ink-100">If you opt in to crash reporting:</strong> stack traces and
+          runtime context for crashes only, sent to Sentry, with PII scrubbed.
+          You can switch it off in Settings; the toggle takes effect immediately.
+        </p>
+        <p>
+          <strong class="text-ink-100">If you opt in to in-app feedback:</strong> the text you type,
+          plus the version + platform you're on. We post it as a GitHub issue.
+        </p>
+        <p>
+          <strong class="text-ink-100">This marketing site:</strong> Cloudflare Web Analytics —
+          aggregate page-views only. No cookies, no third-party requests, no fingerprinting.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

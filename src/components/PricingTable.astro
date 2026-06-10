@@ -1,0 +1,91 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const freeFeatures = [
+  'Programmable button grid, any size',
+  'All 17 action types — open, copy, keystroke, shell, HTTP, workflow, more',
+  'Live-data widgets — clock, weather, calendar, stock, CI status, Sentry, Spotify',
+  'AI Builder via MCP (Claude / Cursor / Cline / Claude Code) — propose-and-approve',
+  'AI Builder direct (Anthropic / OpenAI / local Ollama)',
+  'Mobile Remote PWA, pair by QR over LAN',
+  'Multiple profiles + themes',
+  'Audit log + secrets in OS keychain',
+  'Signed auto-updater',
+  'Free forever for personal use',
+];
+
+const proPreviews = [
+  'Cloud sync across machines',
+  'Multi-device live mirroring',
+  'Premium recipes — Philips Hue, Sonos, Tapo, Home Assistant',
+  'Notion + Linear integrations',
+  'Unlimited AI Builder quota',
+  'Priority support',
+];
+---
+
+<section class="grid gap-6 lg:grid-cols-2">
+  <div class="card flex flex-col gap-6 p-8">
+    <header>
+      <span class="eyebrow">Free</span>
+      <h3 class="heading-3 mt-2 text-ink-50">SynaptoDeck</h3>
+      <p class="mt-2 text-sm text-ink-300">For personal use. No account. No expiry.</p>
+    </header>
+    <div class="flex items-baseline gap-2">
+      <span class="text-4xl font-semibold tracking-tighter2 text-ink-50">$0</span>
+      <span class="text-sm text-ink-300">forever</span>
+    </div>
+    <ul class="space-y-2.5">
+      {
+        freeFeatures.map((item) => (
+          <li class="flex items-start gap-2.5 text-sm text-ink-200">
+            <Icon name="lucide:check" class="mt-0.5 h-4 w-4 flex-none text-brand-cyan" />
+            <span>{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <a href="/download" class="btn-primary mt-auto self-start text-sm">
+      <Icon name="lucide:download" class="h-4 w-4" />
+      <span>Download for free</span>
+    </a>
+  </div>
+
+  <div
+    class="card relative flex flex-col gap-6 overflow-hidden border border-brand-cyan/20 p-8"
+  >
+    <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-cyan/40 to-transparent" aria-hidden="true"></div>
+    <header class="flex items-start justify-between gap-3">
+      <div>
+        <span class="eyebrow">Pro</span>
+        <h3 class="heading-3 mt-2 text-ink-50">Pro tier</h3>
+        <p class="mt-2 text-sm text-ink-300">Cloud sync, multi-device, premium recipes, unlimited AI quota.</p>
+      </div>
+      <span class="inline-flex items-center rounded-full bg-brand-cyan/10 px-2.5 py-0.5 text-xs font-medium text-brand-cyan ring-1 ring-inset ring-brand-cyan/30">
+        Coming soon
+      </span>
+    </header>
+    <div class="flex items-baseline gap-2">
+      <span class="text-4xl font-semibold tracking-tighter2 text-ink-50">$X / mo</span>
+      <span class="text-sm text-ink-300">pricing TBD</span>
+    </div>
+    <ul class="space-y-2.5">
+      {
+        proPreviews.map((item) => (
+          <li class="flex items-start gap-2.5 text-sm text-ink-200">
+            <Icon name="lucide:sparkle" class="mt-0.5 h-4 w-4 flex-none text-brand-cyan" />
+            <span>{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <a
+      href="https://github.com/synaptodeck/synaptodeck"
+      rel="noopener"
+      class="btn-secondary mt-auto self-start text-sm"
+    >
+      <Icon name="lucide:bell" class="h-4 w-4" />
+      <span>Watch the repo for early access</span>
+    </a>
+  </div>
+</section>

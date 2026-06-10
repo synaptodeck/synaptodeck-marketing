@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://synaptodeck.app/sitemap-index.xml

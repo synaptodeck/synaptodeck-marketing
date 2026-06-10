@@ -1,0 +1,10 @@
+# Cloudflare Pages redirect rules.
+# Format: <from> <to> <status>
+# Activated only on the synaptodeck.com canonical (once DNS flips).
+
+# Tidy trailing slashes
+/index 					/ 					301
+
+# Future: synaptodeck.com → synaptodeck.app
+# Configure on the Cloudflare dashboard as a separate Pages project pointing
+# all paths at https://synaptodeck.app/:splat (301).

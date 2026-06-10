@@ -1,0 +1,226 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import RecipeShowcase from '../components/RecipeShowcase.astro';
+import { features } from '../lib/features';
+
+const HERO_IDS = [
+  'ai-builder-mcp',
+  'mobile-remote',
+  'action-workflow',
+  'widget-spotify-now-playing',
+  'cross-platform',
+  'local-first',
+];
+
+const heroFeatures = HERO_IDS.map((id) => features.find((f) => f.id === id)!).filter(Boolean);
+---
+
+<Base title="SynaptoDeck">
+  <Hero
+    eyebrow="Programmable button deck for desktop + phone"
+    headline="AI builds your deck. You approve."
+    subheadline="SynaptoDeck is a button grid for your Mac and Windows desktop. Live-data widgets, a Mobile Remote PWA, and an inbox where AI proposes new buttons — you ship them when you're ready."
+  />
+
+  <!-- TOP FEATURES -->
+  <section class="container-page py-20 md:py-28">
+    <SectionHeading
+      eyebrow="What you get"
+      title="Six things SynaptoDeck does that the others don't."
+      description="A grid of buttons sounds simple. The interesting part is what each button can do, who can build them, and where you can fire them from."
+    />
+    <div class="mt-12">
+      <FeatureGrid features={heroFeatures} columns={3} />
+    </div>
+    <div class="mt-10">
+      <a href="/features" class="btn-ghost text-sm">
+        <span>See every feature</span>
+        <Icon name="lucide:arrow-right" class="h-4 w-4" />
+      </a>
+    </div>
+  </section>
+
+  <!-- AI BUILDER -->
+  <section class="border-t border-white/5 bg-gradient-to-b from-ink-950 to-ink-900/40">
+    <div class="container-page py-20 md:py-28">
+      <div class="grid gap-12 lg:grid-cols-12">
+        <div class="lg:col-span-6">
+          <span class="eyebrow">AI Builder</span>
+          <h2 class="heading-2 mt-4 text-ink-50">Other decks let AI fire your buttons. SynaptoDeck lets AI build them.</h2>
+          <div class="prose-lite mt-6 space-y-4">
+            <p>
+              Connect Claude Desktop, Claude Code, Cursor, or Cline over MCP. Ask
+              for the deck you want — a streaming setup, a developer dashboard, a
+              kid-safe media remote — and AI drops a proposal into your inbox.
+            </p>
+            <p>
+              You see the buttons before they exist. You approve, edit, or
+              reject. Then SynaptoDeck applies them. AI never writes to your
+              deck directly. Every change is auditable.
+            </p>
+          </div>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="/ai-builder" class="btn-primary text-sm">
+              <span>How the AI Builder works</span>
+              <Icon name="lucide:arrow-right" class="h-4 w-4" />
+            </a>
+            <a href="/security" class="btn-secondary text-sm">
+              <Icon name="lucide:shield-check" class="h-4 w-4" />
+              <span>Safety model</span>
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-span-6">
+          <div class="card p-6 md:p-8">
+            <h3 class="eyebrow">The flow</h3>
+            <ol class="mt-5 space-y-4">
+              <li class="flex gap-4">
+                <span class="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-brand-cyan/10 text-xs font-semibold text-brand-cyan ring-1 ring-inset ring-brand-cyan/30">1</span>
+                <div>
+                  <p class="text-sm font-medium text-ink-50">AI proposes</p>
+                  <p class="text-sm text-ink-300">A model calls <code class="rounded bg-white/[0.06] px-1.5 py-0.5 text-xs text-brand-cyan">propose_button</code> with a structured payload.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-brand-cyan/10 text-xs font-semibold text-brand-cyan ring-1 ring-inset ring-brand-cyan/30">2</span>
+                <div>
+                  <p class="text-sm font-medium text-ink-50">SynaptoDeck validates</p>
+                  <p class="text-sm text-ink-300">Schema check, action whitelist, risk classification. Bad proposals never reach you.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-brand-cyan/10 text-xs font-semibold text-brand-cyan ring-1 ring-inset ring-brand-cyan/30">3</span>
+                <div>
+                  <p class="text-sm font-medium text-ink-50">You approve</p>
+                  <p class="text-sm text-ink-300">The proposal lands in the inbox with a preview. Approve, edit, or reject.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-brand-cyan/10 text-xs font-semibold text-brand-cyan ring-1 ring-inset ring-brand-cyan/30">4</span>
+                <div>
+                  <p class="text-sm font-medium text-ink-50">SynaptoDeck applies</p>
+                  <p class="text-sm text-ink-300">The new button materialises on your deck. Every action is recorded in the audit log.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOBILE REMOTE -->
+  <section class="border-t border-white/5">
+    <div class="container-page py-20 md:py-28">
+      <div class="grid gap-12 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <span class="eyebrow">Mobile Remote</span>
+          <h2 class="heading-2 mt-4 text-ink-50">Your deck on your phone in 10 seconds.</h2>
+          <div class="prose-lite mt-6 space-y-4">
+            <p>
+              Open the URL the desktop shows you. Scan the QR. Pinch-zoom and
+              tap. That's the pairing flow — there's no App Store install and
+              no cloud account.
+            </p>
+            <p>
+              The Mobile Remote runs as a PWA over your LAN. Fire any button.
+              Switch profiles. It works offline from your phone's home screen
+              once you've installed it.
+            </p>
+          </div>
+          <a href="/mobile-remote" class="btn-primary mt-7 text-sm">
+            <span>How pairing works</span>
+            <Icon name="lucide:arrow-right" class="h-4 w-4" />
+          </a>
+        </div>
+        <div class="lg:col-span-7">
+          <div class="grid gap-4 sm:grid-cols-3">
+            <div class="card flex items-start gap-3 p-5">
+              <Icon name="lucide:qr-code" class="h-5 w-5 text-brand-cyan" />
+              <div>
+                <p class="text-sm font-medium text-ink-50">Pair by QR</p>
+                <p class="mt-1 text-xs text-ink-300">No account. No cloud. Just your LAN.</p>
+              </div>
+            </div>
+            <div class="card flex items-start gap-3 p-5">
+              <Icon name="lucide:smartphone" class="h-5 w-5 text-brand-cyan" />
+              <div>
+                <p class="text-sm font-medium text-ink-50">PWA, not App Store</p>
+                <p class="mt-1 text-xs text-ink-300">Install from the browser. Works offline once cached.</p>
+              </div>
+            </div>
+            <div class="card flex items-start gap-3 p-5">
+              <Icon name="lucide:refresh-ccw" class="h-5 w-5 text-brand-cyan" />
+              <div>
+                <p class="text-sm font-medium text-ink-50">Profile switching</p>
+                <p class="mt-1 text-xs text-ink-300">Flip the desktop deck from across the room.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW SHOWCASE -->
+  <section class="border-t border-white/5 bg-ink-900/30">
+    <div class="container-page py-20 md:py-28">
+      <SectionHeading
+        eyebrow="Workflow chains"
+        title="One button. Many actions."
+        description="Group sub-actions into a single tap. Open the apps you need, hit a URL, fire a shortcut, paste a snippet — in order, with optional delays."
+      />
+      <div class="mt-10 space-y-4">
+        <RecipeShowcase
+          title="Start my workday"
+          description="One button — coffee mug on the deck — fires four actions in 1.2 seconds."
+          steps={[
+            { icon: 'lucide:slack', label: 'Open Slack' },
+            { icon: 'lucide:notebook-pen', label: 'Open Notion' },
+            { icon: 'lucide:music', label: 'Start playlist' },
+            { icon: 'lucide:terminal', label: 'Open terminal' },
+          ]}
+        />
+        <RecipeShowcase
+          title="Ship it"
+          description="From the dev profile. Tag the release, push, then alert the team."
+          steps={[
+            { icon: 'lucide:terminal', label: 'git tag + push' },
+            { icon: 'lucide:globe', label: 'POST to Slack webhook' },
+            { icon: 'lucide:bell', label: 'Toast: deploy fired' },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="border-t border-white/5">
+    <div class="container-page py-20 md:py-28">
+      <div class="card relative overflow-hidden p-10 md:p-14">
+        <div class="absolute inset-0 bg-card-glow" aria-hidden="true"></div>
+        <div class="relative grid gap-8 lg:grid-cols-2 lg:items-center">
+          <div>
+            <h2 class="heading-2 text-ink-50">Get SynaptoDeck.</h2>
+            <p class="lead mt-3 max-w-xl">
+              Free for personal use. Windows and macOS. No account. No telemetry without consent.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3 lg:justify-end">
+            <a href="/download" class="btn-primary text-base">
+              <Icon name="lucide:download" class="h-4 w-4" />
+              <span>Download for free</span>
+            </a>
+            <a href="/features" class="btn-secondary text-base">
+              <span>See every feature</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

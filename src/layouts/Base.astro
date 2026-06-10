@@ -1,0 +1,78 @@
+---
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const { title, description, canonical, ogImage } = Astro.props;
+const isHome = title === 'SynaptoDeck';
+const fullTitle = isHome ? 'SynaptoDeck — AI builds your deck. You approve.' : `${title} — SynaptoDeck`;
+const fullDescription =
+  description ??
+  'A programmable button grid for your Mac and Windows desktop. Live widgets, a Mobile Remote PWA, and an AI Builder that proposes buttons — you approve before they apply.';
+
+const siteUrl = Astro.site ?? new URL('https://synaptodeck.app');
+const pageUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const canonicalUrl = canonical ?? pageUrl;
+const ogImageUrl = ogImage ?? new URL('/brand/og-default.png', siteUrl).toString();
+
+const cfToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
+---
+
+<!doctype html>
+<html lang="en" class="bg-ink-950 text-ink-100 antialiased">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={fullDescription} />
+    <meta name="theme-color" content="#0b1d3d" />
+
+    <meta property="og:site_name" content="SynaptoDeck" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={fullDescription} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={fullDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <meta name="generator" content={Astro.generator} />
+
+    {
+      cfToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${cfToken}"}`}
+        />
+      )
+    }
+  </head>
+  <body class="min-h-screen flex flex-col selection:bg-brand-cyan/30">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-brand-cyan focus:px-3 focus:py-2 focus:text-ink-950"
+    >
+      Skip to content
+    </a>
+    <Nav />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

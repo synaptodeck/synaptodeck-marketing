@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    font-family: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+  }
+
+  ::selection {
+    background: rgba(95, 190, 255, 0.32);
+    color: #f1f5fb;
+  }
+
+  :focus-visible {
+    outline: 2px solid #5fbeff;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-feature-settings: 'cv11', 'ss01';
+    letter-spacing: -0.025em;
+  }
+
+  a {
+    transition: color 120ms ease;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-page px-6 md:px-8 lg:px-10;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition;
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cyan;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand-cyan text-ink-950 hover:bg-brand-cyan/90;
+  }
+
+  .btn-secondary {
+    @apply btn bg-white/[0.04] text-ink-100 ring-1 ring-inset ring-white/10 hover:bg-white/[0.08];
+  }
+
+  .btn-ghost {
+    @apply btn text-ink-200 hover:text-ink-50 hover:bg-white/[0.04];
+  }
+
+  .card {
+    @apply rounded-2xl bg-white/[0.025] ring-1 ring-inset ring-white/10 backdrop-blur-sm;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-brand-cyan;
+  }
+
+  .heading-1 {
+    @apply text-4xl font-semibold tracking-tighter2 md:text-5xl lg:text-6xl;
+  }
+
+  .heading-2 {
+    @apply text-3xl font-semibold tracking-tighter2 md:text-4xl;
+  }
+
+  .heading-3 {
+    @apply text-xl font-semibold tracking-tightish md:text-2xl;
+  }
+
+  .lead {
+    @apply text-lg leading-relaxed text-ink-200 md:text-xl;
+  }
+
+  .prose-lite {
+    @apply max-w-prose text-ink-200;
+  }
+
+  .prose-lite p + p {
+    @apply mt-4;
+  }
+}

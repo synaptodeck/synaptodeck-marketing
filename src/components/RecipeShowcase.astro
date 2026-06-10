@@ -1,0 +1,31 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title: string;
+  description: string;
+  steps: Array<{ icon: string; label: string }>;
+}
+
+const { title, description, steps } = Astro.props;
+---
+
+<div class="card p-6 md:p-8">
+  <h3 class="heading-3 text-ink-50">{title}</h3>
+  <p class="mt-2 text-sm text-ink-300">{description}</p>
+  <ol class="mt-6 flex flex-wrap items-center gap-3">
+    {
+      steps.map((step, index) => (
+        <li class="flex items-center gap-3">
+          <div class="flex items-center gap-2 rounded-lg bg-ink-900/60 px-3 py-2 ring-1 ring-inset ring-white/10">
+            <Icon name={step.icon} class="h-4 w-4 text-brand-cyan" />
+            <span class="text-sm font-medium text-ink-100">{step.label}</span>
+          </div>
+          {index < steps.length - 1 && (
+            <Icon name="lucide:arrow-right" class="h-4 w-4 text-ink-400" aria-hidden="true" />
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</div>

@@ -1,0 +1,590 @@
+{
+  "$schema": "./features.schema.json",
+  "_doc": [
+    "v0.88.6 — Source of truth for SynaptoDeck's feature inventory.",
+    "Maintained by hand. Whenever a feature ships, REMOVES, or changes status,",
+    "this file is updated IN THE SAME COMMIT as the code change.",
+    "",
+    "The marketing site (synaptodeck.app, separate repo) fetches this file",
+    "via https://raw.githubusercontent.com/synaptodeck/synaptodeck/main/marketing/features.json",
+    "at every site build, so updating the manifest = updating the site.",
+    "No second source of truth. No marketing-site PR per feature.",
+    "",
+    "When adding a feature here:",
+    "  1. Pick a stable kebab-case id (used as a URL fragment + slot key)",
+    "  2. Choose a category from the categories[] list below",
+    "  3. status: 'live' for shipped, 'beta' for behind a flag, 'planned' for backlog",
+    "  4. versionIntroduced: the tag where it shipped (e.g. 'v0.84.0')",
+    "  5. description: 1-line internal (what it does technically)",
+    "  6. marketingCopy: 1-2 sentence user-facing (what it gives them)",
+    "  7. icon: lucide-react icon name (the marketing site uses lucide)",
+    "  8. screenshot: optional /screenshots/<id>.png — site renders if file exists",
+    "",
+    "When REMOVING a feature: just delete the entry. The site rebuilds without it.",
+    "When DEPRECATING: change status to 'deprecated' (kept visible with a note).",
+    "",
+    "Schema: see features.schema.json for the full type."
+  ],
+  "categories": [
+    {
+      "id": "core",
+      "name": "Core deck",
+      "tagline": "The fundamentals — a grid of buttons that do things.",
+      "displayOrder": 1
+    },
+    {
+      "id": "actions",
+      "name": "What buttons can do",
+      "tagline": "17 action types out of the box, plus workflow chains.",
+      "displayOrder": 2
+    },
+    {
+      "id": "widgets",
+      "name": "Live-data widgets",
+      "tagline": "Buttons that aren't just buttons — they show live information at a glance.",
+      "displayOrder": 3
+    },
+    {
+      "id": "ai",
+      "name": "AI Builder",
+      "tagline": "Claude, Cursor, Cline, and Claude Code can propose buttons. You approve.",
+      "displayOrder": 4
+    },
+    {
+      "id": "mobile",
+      "name": "Mobile Remote",
+      "tagline": "Control your desktop deck from your phone over LAN — no cloud needed.",
+      "displayOrder": 5
+    },
+    {
+      "id": "integrations",
+      "name": "Integrations",
+      "tagline": "First-class support for the apps you use most.",
+      "displayOrder": 6
+    },
+    {
+      "id": "safety",
+      "name": "Safety & privacy",
+      "tagline": "Local-first, secrets in your OS keychain, every action auditable.",
+      "displayOrder": 7
+    },
+    {
+      "id": "platform",
+      "name": "Platform",
+      "tagline": "Cross-platform, free forever for the personal tier, no telemetry without consent.",
+      "displayOrder": 8
+    }
+  ],
+  "features": [
+    {
+      "id": "programmable-grid",
+      "name": "Programmable grid",
+      "category": "core",
+      "status": "live",
+      "versionIntroduced": "v0.1.0",
+      "description": "Configurable rows × columns of buttons. 1×1 to 8×8 (or larger).",
+      "marketingCopy": "Lay out exactly the deck you need. Resize the grid anytime — your buttons reflow.",
+      "icon": "LayoutGrid"
+    },
+    {
+      "id": "multi-page",
+      "name": "Multiple pages per profile",
+      "category": "core",
+      "status": "live",
+      "versionIntroduced": "v0.10.0",
+      "description": "Each profile contains paginated pages; favourites + hotkeys per page.",
+      "marketingCopy": "Group your buttons however you think — work, personal, games, side projects. One swipe between them.",
+      "icon": "FilePlus"
+    },
+    {
+      "id": "multi-profile",
+      "name": "Multiple profiles",
+      "category": "core",
+      "status": "live",
+      "versionIntroduced": "v0.1.0",
+      "description": "Separate deck configurations; switch instantly from the sidebar.",
+      "marketingCopy": "One deck for streaming, one for dev, one for the kitchen. Switch with a click.",
+      "icon": "Users"
+    },
+    {
+      "id": "per-profile-background",
+      "name": "Per-profile wallpaper",
+      "category": "core",
+      "status": "live",
+      "versionIntroduced": "v0.75.0",
+      "description": "Custom background image per profile.",
+      "marketingCopy": "Make each deck feel like its own space.",
+      "icon": "Image"
+    },
+    {
+      "id": "global-hotkeys",
+      "name": "Global hotkeys",
+      "category": "core",
+      "status": "live",
+      "versionIntroduced": "v0.12.0",
+      "description": "OS-level keyboard shortcut per button — fires from any app.",
+      "marketingCopy": "Trigger any button from anywhere, even when SynaptoDeck isn't focused.",
+      "icon": "Keyboard"
+    },
+    {
+      "id": "themes",
+      "name": "Themes (light/dark/cyberpunk/tactile)",
+      "category": "core",
+      "status": "live",
+      "versionIntroduced": "v0.82.0",
+      "description": "4 built-in themes + per-button styles + tactile press animations.",
+      "marketingCopy": "Make it look how you want — clean, glassy, neon, or like a real button deck.",
+      "icon": "Palette"
+    },
+    {
+      "id": "action-launchers",
+      "name": "Launchers (URL / app / file / folder)",
+      "category": "actions",
+      "status": "live",
+      "versionIntroduced": "v0.1.0",
+      "description": "open_url, open_app, open_file, open_folder action types.",
+      "marketingCopy": "One click → opens a URL, app, file, or folder. The bread and butter.",
+      "icon": "ExternalLink"
+    },
+    {
+      "id": "action-clipboard",
+      "name": "Copy text to clipboard",
+      "category": "actions",
+      "status": "live",
+      "versionIntroduced": "v0.1.0",
+      "description": "copy_text action — stash repeated snippets behind a button.",
+      "marketingCopy": "Email signatures, code snippets, your zoom link — one tap to the clipboard.",
+      "icon": "Clipboard"
+    },
+    {
+      "id": "action-keystroke",
+      "name": "Send keystrokes",
+      "category": "actions",
+      "status": "live",
+      "versionIntroduced": "v0.15.0",
+      "description": "keystroke action with both literal-text and DSL-sequence modes (modifiers + named keys).",
+      "marketingCopy": "Fire a shortcut into the foreground app — perfect for tools that don't have global hotkey APIs.",
+      "icon": "Keyboard"
+    },
+    {
+      "id": "action-shell",
+      "name": "Run shell commands",
+      "category": "actions",
+      "status": "live",
+      "versionIntroduced": "v0.18.0",
+      "description": "shell_command action with shell autodetect, cwd override, output capture (toast/clipboard).",
+      "marketingCopy": "Run any script as a button. See its output in a toast or grab it from the clipboard.",
+      "icon": "Terminal"
+    },
+    {
+      "id": "action-http",
+      "name": "HTTP request action",
+      "category": "actions",
+      "status": "live",
+      "versionIntroduced": "v0.18.1",
+      "description": "http_request action with full method/header/body support, JSONPath response extraction, secret substitution.",
+      "marketingCopy": "Hit any API as a button. Inject secrets safely from your OS keychain.",
+      "icon": "Globe"
+    },
+    {
+      "id": "action-wol",
+      "name": "Wake on LAN",
+      "category": "actions",
+      "status": "live",
+      "versionIntroduced": "v0.37.0",
+      "description": "wake_on_lan action — broadcasts a magic packet to a MAC address on the LAN.",
+      "marketingCopy": "Wake your desktop, NAS, or media server from your phone. No router config required.",
+      "icon": "Power"
+    },
+    {
+      "id": "action-volume",
+      "name": "System volume control",
+      "category": "actions",
+      "status": "live",
+      "versionIntroduced": "v0.2.0",
+      "description": "volume_up, volume_down, volume_mute via OS audio APIs.",
+      "marketingCopy": "Volume up, down, mute — one button each. Works system-wide.",
+      "icon": "Volume2"
+    },
+    {
+      "id": "action-media",
+      "name": "Media transport keys",
+      "category": "actions",
+      "status": "live",
+      "versionIntroduced": "v0.2.0",
+      "description": "media_play_pause, media_next, media_previous routed through OS media keys.",
+      "marketingCopy": "Play / pause / skip the current track — works for Spotify, Apple Music, YouTube in any browser.",
+      "icon": "Play"
+    },
+    {
+      "id": "action-workflow",
+      "name": "Workflow chains",
+      "category": "actions",
+      "status": "live",
+      "versionIntroduced": "v0.25.0",
+      "description": "workflow action — sequence of sub-actions with optional delays + stop-on-error.",
+      "marketingCopy": "Chain multiple actions behind one button. \"Start my workday\" = open Slack + Notion + a playlist + a terminal, all from one tap.",
+      "icon": "Workflow"
+    },
+    {
+      "id": "widget-clock",
+      "name": "Clock widget",
+      "category": "widgets",
+      "status": "live",
+      "versionIntroduced": "v0.84.0",
+      "description": "Live clock + date, updates every second.",
+      "marketingCopy": "Always know what time it is without leaving the deck.",
+      "icon": "Clock"
+    },
+    {
+      "id": "widget-weather",
+      "name": "Weather widget",
+      "category": "widgets",
+      "status": "live",
+      "versionIntroduced": "v0.86.0",
+      "description": "Current temperature + conditions for your configured location.",
+      "marketingCopy": "Skip the weather app — your deck shows it.",
+      "icon": "CloudSun"
+    },
+    {
+      "id": "widget-calendar",
+      "name": "Calendar peek widget",
+      "category": "widgets",
+      "status": "live",
+      "versionIntroduced": "v0.86.0",
+      "description": "Next N events from any iCal URL (Google / iCloud / Outlook).",
+      "marketingCopy": "Your next meeting, always visible. No app-switching to check the schedule.",
+      "icon": "Calendar"
+    },
+    {
+      "id": "widget-stock",
+      "name": "Stock price widget",
+      "category": "widgets",
+      "status": "live",
+      "versionIntroduced": "v0.86.3",
+      "description": "Live stock / crypto price ticker.",
+      "marketingCopy": "Watch a ticker without the brokerage app open.",
+      "icon": "TrendingUp"
+    },
+    {
+      "id": "widget-ci",
+      "name": "CI status widget",
+      "category": "widgets",
+      "status": "live",
+      "versionIntroduced": "v0.86.3",
+      "description": "Build status for your GitHub Actions / GitLab CI pipeline.",
+      "marketingCopy": "Green build? Red build? Glance at your deck instead of opening the dashboard.",
+      "icon": "CheckCircle2"
+    },
+    {
+      "id": "widget-sentry",
+      "name": "Sentry error count widget",
+      "category": "widgets",
+      "status": "live",
+      "versionIntroduced": "v0.86.3",
+      "description": "Live unresolved-issue count from any Sentry project.",
+      "marketingCopy": "See your error count without leaving what you're doing.",
+      "icon": "Bug"
+    },
+    {
+      "id": "widget-audit",
+      "name": "Audit log widget",
+      "category": "widgets",
+      "status": "live",
+      "versionIntroduced": "v0.84.0",
+      "description": "Recent audit events from your deck — what fired, when.",
+      "marketingCopy": "Your deck's recent activity at a glance — useful for debugging webhooks + triggers.",
+      "icon": "List"
+    },
+    {
+      "id": "widget-custom-http",
+      "name": "Custom HTTP widget",
+      "category": "widgets",
+      "status": "live",
+      "versionIntroduced": "v0.84.0",
+      "description": "http_custom widget — fetches any URL, extracts a value via dot-path, displays it.",
+      "marketingCopy": "Wire any API to a button without writing code. JSON in, value out.",
+      "icon": "Cable"
+    },
+    {
+      "id": "widget-spotify-now-playing",
+      "name": "Spotify Now Playing strip",
+      "category": "widgets",
+      "status": "live",
+      "versionIntroduced": "v0.86.2",
+      "description": "Album art + track + artist + transport controls in a horizontal strip widget.",
+      "marketingCopy": "See what's playing without opening Spotify.",
+      "icon": "Music"
+    },
+    {
+      "id": "ai-builder-mcp",
+      "name": "AI Builder via MCP",
+      "category": "ai",
+      "status": "live",
+      "versionIntroduced": "v0.43.0",
+      "description": "Sidecar exposes MCP tools to Claude Desktop / Cursor / Cline / Claude Code. AI proposes buttons + pages.",
+      "marketingCopy": "Connect Claude (or any MCP client) and ask it to build buttons for you. Every proposal lands in an inbox — you approve, AppDeck applies. AI never writes to your deck directly.",
+      "icon": "Sparkles"
+    },
+    {
+      "id": "ai-builder-direct",
+      "name": "AI Builder direct (Claude/OpenAI/Ollama)",
+      "category": "ai",
+      "status": "live",
+      "versionIntroduced": "v0.41.0",
+      "description": "Generate buttons + pages from a prompt using Anthropic / OpenAI / local Ollama providers.",
+      "marketingCopy": "Describe the deck you want in plain English. Pick from 3-8 suggestions; approve to apply.",
+      "icon": "Wand2"
+    },
+    {
+      "id": "ai-builder-paste",
+      "name": "Paste-JSON import",
+      "category": "ai",
+      "status": "live",
+      "versionIntroduced": "v0.38.0",
+      "description": "Paste structured JSON from any AI chat → lands in the Suggestion Inbox.",
+      "marketingCopy": "Don't want to wire up an API key? Paste JSON from ChatGPT / Claude / Gemini and we'll validate it.",
+      "icon": "ClipboardPaste"
+    },
+    {
+      "id": "ai-suggestion-inbox",
+      "name": "AI Suggestion Inbox",
+      "category": "ai",
+      "status": "live",
+      "versionIntroduced": "v0.38.0",
+      "description": "Every AI proposal queues here with risk classification; user approves/rejects.",
+      "marketingCopy": "AI suggests. SynaptoDeck validates. You approve. SynaptoDeck applies. Every change is reviewable, every action auditable.",
+      "icon": "Inbox"
+    },
+    {
+      "id": "mobile-remote",
+      "name": "Mobile Remote (PWA)",
+      "category": "mobile",
+      "status": "live",
+      "versionIntroduced": "v0.30.0",
+      "description": "Browser-based PWA paired via QR code over LAN; pinch-zoom, tap to fire buttons.",
+      "marketingCopy": "Turn your phone into a SynaptoDeck remote in 10 seconds. No App Store install, no cloud account. Pair by QR, control your desktop from anywhere on your network.",
+      "icon": "Smartphone"
+    },
+    {
+      "id": "mobile-multi-profile",
+      "name": "Mobile profile switching",
+      "category": "mobile",
+      "status": "live",
+      "versionIntroduced": "v0.78.0",
+      "description": "Phone PWA can switch the active profile on the desktop.",
+      "marketingCopy": "Flip your desktop deck to a different profile from your phone. Useful when you're in another room.",
+      "icon": "RefreshCcw"
+    },
+    {
+      "id": "spotify-integration",
+      "name": "Spotify deep integration",
+      "category": "integrations",
+      "status": "live",
+      "versionIntroduced": "v0.50.0",
+      "description": "OAuth PKCE auth, 9 control actions, search modal, Now Playing strip widget, volume slider.",
+      "marketingCopy": "Full Spotify control without Alt-Tab. Play, pause, skip, search, change volume, see what's playing — all on the deck.",
+      "icon": "Music"
+    },
+    {
+      "id": "inbound-notifications",
+      "name": "Inbound notifications / webhooks",
+      "category": "integrations",
+      "status": "live",
+      "versionIntroduced": "v0.86.0",
+      "description": "POST /api/notify endpoint with toast/banner/blocking-modal variants.",
+      "marketingCopy": "Wire any system (CI, monitoring, smart home) to push notifications into SynaptoDeck. Visible without leaving your deck.",
+      "icon": "Bell"
+    },
+    {
+      "id": "webhooks-triggers",
+      "name": "Webhook triggers",
+      "category": "integrations",
+      "status": "beta",
+      "versionIntroduced": "v0.81.0",
+      "description": "POST /api/trigger endpoint to fire any button remotely (hidden behind feature flag in v0.81.1).",
+      "marketingCopy": "Let your smart-home doorbell, your CI build, or your Slack bot fire a SynaptoDeck button. Coming out of beta soon.",
+      "icon": "Webhook"
+    },
+    {
+      "id": "all-apps-import",
+      "name": "All-apps import recipe",
+      "category": "integrations",
+      "status": "live",
+      "versionIntroduced": "v0.88.4",
+      "description": "One-click scan of Start Menu (Win) / /Applications (mac) → page of one-button-per-installed-app.",
+      "marketingCopy": "Make a deck of every app on your machine in one click. Real icons, alphabetical, auto-sized.",
+      "icon": "Package"
+    },
+    {
+      "id": "recipes",
+      "name": "Recipes (button + page templates)",
+      "category": "core",
+      "status": "live",
+      "versionIntroduced": "v0.18.0",
+      "description": "Curated pre-built button + page templates across productivity, dev, IDE, media, streamer categories.",
+      "marketingCopy": "Don't start from a blank deck. Pick a recipe — Daily Apps, IDE Launchers, Spotify Deck — and tweak from there.",
+      "icon": "BookOpen"
+    },
+    {
+      "id": "audit-log",
+      "name": "Audit log",
+      "category": "safety",
+      "status": "live",
+      "versionIntroduced": "v0.18.0",
+      "description": "Every action fire is logged with timestamp, source, status; CSV export.",
+      "marketingCopy": "Every action your deck has fired, ever. Filter, search, export to CSV. Indispensable when something misbehaves.",
+      "icon": "ScrollText"
+    },
+    {
+      "id": "secrets-keychain",
+      "name": "Secrets in OS keychain",
+      "category": "safety",
+      "status": "live",
+      "versionIntroduced": "v0.18.1",
+      "description": "${SECRET:name} substitution at fire time; stored in Windows Credential Manager / macOS Keychain.",
+      "marketingCopy": "API keys never sit in plaintext. SynaptoDeck stores them in your OS keychain and substitutes them at fire time. AI never sees the values.",
+      "icon": "KeyRound"
+    },
+    {
+      "id": "crash-reporting",
+      "name": "Optional crash reporting",
+      "category": "safety",
+      "status": "live",
+      "versionIntroduced": "v0.76.0",
+      "description": "Sentry integration, off by default, user consent required, full PII scrubbing.",
+      "marketingCopy": "Help us fix bugs you don't even notice — or don't. Crash reporting is off by default and asks before sending anything.",
+      "icon": "ShieldCheck"
+    },
+    {
+      "id": "manual-feedback",
+      "name": "In-app feedback channel",
+      "category": "safety",
+      "status": "live",
+      "versionIntroduced": "v0.77.0",
+      "description": "Report a Problem + Ask SynaptoDeck to Learn This — posts to GitHub issues via Cloudflare Worker.",
+      "marketingCopy": "Stuck? Wish something existed? Tell us from inside the app — your message becomes a GitHub issue, with the right context attached.",
+      "icon": "MessageCircle"
+    },
+    {
+      "id": "learning-banner",
+      "name": "New Capability Learned banner",
+      "category": "safety",
+      "status": "live",
+      "versionIntroduced": "v0.79.0",
+      "description": "When a feature you requested ships, SynaptoDeck shows a personalised banner on first launch.",
+      "marketingCopy": "Asked for a feature six weeks ago and forgot? When it ships, your SynaptoDeck remembers and tells you.",
+      "icon": "BellRing"
+    },
+    {
+      "id": "auto-updater",
+      "name": "Signed auto-updater",
+      "category": "platform",
+      "status": "live",
+      "versionIntroduced": "v0.20.0",
+      "description": "Tauri minisign-signed deltas pulled from GitHub releases; update in place.",
+      "marketingCopy": "Stay current automatically. Cryptographically signed updates — no third party can hand your machine a fake SynaptoDeck.",
+      "icon": "Download"
+    },
+    {
+      "id": "cross-platform",
+      "name": "Cross-platform (Windows + macOS)",
+      "category": "platform",
+      "status": "live",
+      "versionIntroduced": "v0.1.0",
+      "description": "Tauri 2 binaries for win64 + macOS Apple Silicon.",
+      "marketingCopy": "Same SynaptoDeck on your Windows desktop and your MacBook. Your config sync is in your hands.",
+      "icon": "MonitorSmartphone"
+    },
+    {
+      "id": "local-first",
+      "name": "Local-first, no cloud required",
+      "category": "platform",
+      "status": "live",
+      "versionIntroduced": "v0.1.0",
+      "description": "All config + secrets + audit log lives on the user's machine.",
+      "marketingCopy": "No account. No server. Your deck lives on your machine — works offline, gone if you uninstall.",
+      "icon": "HardDrive"
+    },
+    {
+      "id": "free-tier",
+      "name": "Free forever (personal use)",
+      "category": "platform",
+      "status": "live",
+      "versionIntroduced": "v0.1.0",
+      "description": "All features above ship in the free tier. Pro tier (planned) adds cloud sync, multi-device, AI quota, premium recipes.",
+      "marketingCopy": "Every feature you see here is free for personal use. The upcoming Pro tier adds cloud sync across devices + premium integrations.",
+      "icon": "Heart"
+    },
+    {
+      "id": "pro-tier",
+      "name": "Pro tier — cloud sync + multi-device",
+      "category": "platform",
+      "status": "planned",
+      "plannedVersion": "v0.89.0+",
+      "description": "Multi-tenant Workspaces, cloud backup of deck config, multi-device sync, premium recipes (Tapo / Hue / Sonos / Home Assistant), unlimited AI quota.",
+      "marketingCopy": "Coming soon: sync your decks across devices, premium smart-home recipes, and unlimited AI Builder usage. Pricing TBD; free tier stays free.",
+      "icon": "Sparkle"
+    },
+    {
+      "id": "ai-routines",
+      "name": "AI Routines v1",
+      "category": "ai",
+      "status": "planned",
+      "plannedVersion": "v0.87.0+",
+      "description": "Chain AI-orchestrated actions: \"summarise the last 20 unread emails into a Notion page and put a button on my deck for the highest-priority one.\"",
+      "marketingCopy": "Coming soon: AI Routines turn your deck into an agent. Set a goal, AI runs the steps, you keep the button as a one-tap repeat.",
+      "icon": "Bot"
+    },
+    {
+      "id": "cmd-k-search",
+      "name": "Cmd+K global search",
+      "category": "core",
+      "status": "planned",
+      "plannedVersion": "v0.89.x",
+      "description": "Type to find any button on any page of any profile; jump-to-press; recent + favourites.",
+      "marketingCopy": "Coming soon: Cmd+K opens a typeahead over every button you've ever made. Fire any of them from anywhere.",
+      "icon": "Search"
+    },
+    {
+      "id": "stacks",
+      "name": "Stacks / Smart Folders",
+      "category": "core",
+      "status": "planned",
+      "plannedVersion": "v0.89.x",
+      "description": "Drag a button onto another → creates a stack; tap to expand into a popover grid; collapses on outside-click.",
+      "marketingCopy": "Coming soon: Stacks let you group related buttons under one slot. Tap to fan them out, tap outside to collapse.",
+      "icon": "FolderOpen"
+    },
+    {
+      "id": "side-dashboard",
+      "name": "Side dashboard pane",
+      "category": "widgets",
+      "status": "planned",
+      "plannedVersion": "v0.89.x",
+      "description": "Always-visible side column with weather, time, date, notes, battery, system info.",
+      "marketingCopy": "Coming soon: a dedicated side panel for ambient info — time, weather, notes — so your deck stays focused on actions.",
+      "icon": "PanelRightOpen"
+    },
+    {
+      "id": "hidden-pages",
+      "name": "Hidden pages + biometric unlock",
+      "category": "safety",
+      "status": "planned",
+      "plannedVersion": "v0.85.0 (tabled)",
+      "description": "Pages locked behind Windows Hello / Touch ID / passcode.",
+      "marketingCopy": "Future: hide sensitive deck pages behind your fingerprint or Windows Hello. Sensitive shell commands stay protected.",
+      "icon": "Fingerprint"
+    },
+    {
+      "id": "premium-recipes",
+      "name": "Premium smart-home recipes",
+      "category": "integrations",
+      "status": "planned",
+      "plannedVersion": "v0.89.0+",
+      "description": "Tapo, Philips Hue, Sonos, Home Assistant, Notion, Linear — one-click recipes.",
+      "marketingCopy": "Coming soon: one-click recipes for Hue lights, Sonos speakers, Home Assistant, Tapo plugs, Notion + Linear. All as a single Pro tier add-on.",
+      "icon": "Home"
+    }
+  ]
+}

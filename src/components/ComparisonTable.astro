@@ -1,0 +1,82 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Row {
+  capability: string;
+  ours: string | true | false;
+  theirs: string | true | false;
+  note?: string;
+}
+
+interface Props {
+  ourName?: string;
+  theirName: string;
+  rows: Row[];
+}
+
+const { ourName = 'SynaptoDeck', theirName, rows } = Astro.props;
+
+function cell(val: string | true | false) {
+  if (val === true) return { icon: 'lucide:check', text: 'Yes', tone: 'good' };
+  if (val === false) return { icon: 'lucide:minus', text: 'No', tone: 'bad' };
+  return { icon: null as string | null, text: val, tone: 'neutral' };
+}
+---
+
+<div class="overflow-hidden rounded-2xl ring-1 ring-inset ring-white/10">
+  <table class="w-full border-collapse text-sm">
+    <thead class="bg-white/[0.04] text-left">
+      <tr>
+        <th scope="col" class="px-5 py-4 font-semibold text-ink-100">Capability</th>
+        <th scope="col" class="px-5 py-4 font-semibold text-brand-cyan">{ourName}</th>
+        <th scope="col" class="px-5 py-4 font-semibold text-ink-200">{theirName}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row, i) => {
+          const us = cell(row.ours);
+          const them = cell(row.theirs);
+          return (
+            <tr class:list={[i % 2 === 0 ? 'bg-transparent' : 'bg-white/[0.02]']}>
+              <th scope="row" class="px-5 py-4 align-top font-medium text-ink-100">
+                <div>{row.capability}</div>
+                {row.note && <div class="mt-1 text-xs font-normal text-ink-400">{row.note}</div>}
+              </th>
+              <td class="px-5 py-4 align-top text-ink-100">
+                <span class="inline-flex items-center gap-2">
+                  {us.icon && (
+                    <Icon
+                      name={us.icon}
+                      class:list={[
+                        'h-4 w-4',
+                        us.tone === 'good' && 'text-brand-cyan',
+                        us.tone === 'bad' && 'text-ink-500',
+                      ]}
+                    />
+                  )}
+                  <span>{us.text}</span>
+                </span>
+              </td>
+              <td class="px-5 py-4 align-top text-ink-300">
+                <span class="inline-flex items-center gap-2">
+                  {them.icon && (
+                    <Icon
+                      name={them.icon}
+                      class:list={[
+                        'h-4 w-4',
+                        them.tone === 'good' && 'text-ink-300',
+                        them.tone === 'bad' && 'text-ink-500',
+                      ]}
+                    />
+                  )}
+                  <span>{them.text}</span>
+                </span>
+              </td>
+            </tr>
+          );
+        })
+      }
+    </tbody>
+  </table>
+</div>

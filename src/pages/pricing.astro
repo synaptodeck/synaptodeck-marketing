@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import PricingTable from '../components/PricingTable.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+
+const faqs = [
+  {
+    q: 'Is the free tier really free forever?',
+    a: 'Yes. Every feature listed on the Free column above ships to everyone, no expiry, no account. Pro adds cloud sync, multi-device, and premium recipes — none of which are required to use SynaptoDeck.',
+  },
+  {
+    q: 'When does Pro launch?',
+    a: "Pro is on the v0.89.0+ roadmap. We'll publish prices once cloud sync and the first premium recipes are stable. Watch the GitHub repo for the release.",
+  },
+  {
+    q: "Can I self-host Pro features?",
+    a: "Cloud sync will offer a self-host path for users who'd rather not store their deck on our servers. Details ship with Pro.",
+  },
+  {
+    q: 'Will free features ever move to Pro?',
+    a: "No. Anything that's free today stays free. Pro is additive — sync, premium recipes, multi-device, unlimited AI quota.",
+  },
+];
+---
+
+<Base
+  title="Pricing"
+  description="SynaptoDeck is free for personal use. Pro tier adds cloud sync, multi-device, premium recipes, and unlimited AI Builder usage."
+>
+  <section class="container-page py-20 md:py-28">
+    <SectionHeading
+      eyebrow="Pricing"
+      title="Free for personal use. Pro coming soon."
+      description="Everything you see on the Features page is in the Free tier. Pro is for the people who want cloud sync, multi-device, and the premium recipes."
+    />
+    <div class="mt-12">
+      <PricingTable />
+    </div>
+  </section>
+
+  <section class="border-t border-white/5 bg-ink-900/30">
+    <div class="container-page py-20 md:py-28">
+      <SectionHeading eyebrow="FAQ" title="Common questions." />
+      <div class="mt-10 divide-y divide-white/5 rounded-2xl ring-1 ring-inset ring-white/10">
+        {
+          faqs.map((item) => (
+            <details class="group p-6">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-medium text-ink-50">
+                <span>{item.q}</span>
+                <span class="text-brand-cyan transition group-open:rotate-45" aria-hidden="true">+</span>
+              </summary>
+              <p class="prose-lite mt-4">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { featuresByCategory } from '../lib/features';
+
+const groups = featuresByCategory().filter((g) => g.items.length > 0);
+---
+
+<Base
+  title="Features"
+  description="Every SynaptoDeck capability — button actions, widgets, AI Builder, Mobile Remote, integrations, safety, and the platform itself."
+>
+  <section class="container-page pt-20 md:pt-28">
+    <SectionHeading
+      eyebrow="Feature inventory"
+      title="Everything SynaptoDeck does."
+      description="Generated from the same manifest that drives the app. When we ship a feature, this page updates."
+    />
+
+    <nav aria-label="Feature categories" class="mt-10 flex flex-wrap gap-2">
+      {
+        groups.map((g) => (
+          <a
+            href={`#${g.category.id}`}
+            class="rounded-full px-3 py-1.5 text-xs font-medium text-ink-200 ring-1 ring-inset ring-white/10 hover:bg-white/[0.04] hover:text-ink-50"
+          >
+            {g.category.name}
+          </a>
+        ))
+      }
+    </nav>
+  </section>
+
+  <div class="container-page pb-24 pt-14 md:pb-32 md:pt-20">
+    <div class="space-y-20">
+      {
+        groups.map((group) => (
+          <section id={group.category.id} class="scroll-mt-24">
+            <header class="flex flex-col gap-2 border-b border-white/5 pb-6">
+              <span class="eyebrow">{group.category.name}</span>
+              <p class="text-sm text-ink-300">{group.category.tagline}</p>
+            </header>
+            <div class="mt-8">
+              <FeatureGrid features={group.items} columns={3} />
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</Base>

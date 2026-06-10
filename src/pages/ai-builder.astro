@@ -1,0 +1,174 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import { features } from '../lib/features';
+
+const aiFeatures = features.filter((f) => f.category === 'ai');
+
+const clients = [
+  { name: 'Claude Desktop', detail: 'MCP-native. The reference integration.' },
+  { name: 'Claude Code', detail: 'Build buttons from inside your terminal session.' },
+  { name: 'Cursor', detail: 'MCP server URL in settings; build buttons mid-edit.' },
+  { name: 'Cline', detail: 'VS Code agent with MCP tool support.' },
+];
+---
+
+<Base
+  title="AI Builder"
+  description="Claude, Cursor, Cline, and Claude Code can propose buttons and pages. SynaptoDeck validates each proposal. You approve before anything lands on your deck."
+>
+  <section class="container-page py-20 md:py-28">
+    <span class="eyebrow">AI Builder</span>
+    <h1 class="heading-1 mt-4 max-w-4xl text-ink-50">
+      AI proposes. SynaptoDeck validates. You approve.
+    </h1>
+    <p class="lead mt-6 max-w-3xl">
+      Other deck apps let AI fire your existing buttons. SynaptoDeck lets AI
+      build new ones — and every proposal goes through your inbox before it
+      touches your deck.
+    </p>
+
+    <div class="mt-10 grid gap-3 sm:grid-cols-3">
+      <div class="card p-5">
+        <span class="eyebrow">Authoring</span>
+        <p class="mt-2 text-sm text-ink-100">AI calls <code class="rounded bg-white/[0.06] px-1 text-brand-cyan">propose_button</code> with a structured payload.</p>
+      </div>
+      <div class="card p-5">
+        <span class="eyebrow">Validation</span>
+        <p class="mt-2 text-sm text-ink-100">Schema check. Action whitelist. Risk classification.</p>
+      </div>
+      <div class="card p-5">
+        <span class="eyebrow">Approval</span>
+        <p class="mt-2 text-sm text-ink-100">You see every proposal. You ship it, edit it, or reject it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CONTRAST -->
+  <section class="border-t border-white/5 bg-ink-900/30">
+    <div class="container-page py-20 md:py-28">
+      <SectionHeading
+        eyebrow="Why this matters"
+        title="Authoring isn't executing."
+        description="Stream Deck 7.4 shipped MCP support — but it's execute-only. Claude can fire existing buttons. SynaptoDeck's MCP authors them: AI proposes new buttons and pages, then you approve before they apply."
+      />
+      <div class="mt-10 grid gap-5 md:grid-cols-2">
+        <div class="card p-6">
+          <span class="eyebrow">SynaptoDeck (authoring)</span>
+          <ul class="mt-4 space-y-3">
+            <li class="flex items-start gap-2.5 text-sm text-ink-200">
+              <Icon name="lucide:check" class="mt-0.5 h-4 w-4 flex-none text-brand-cyan" />
+              <span>AI proposes buttons + pages.</span>
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-ink-200">
+              <Icon name="lucide:check" class="mt-0.5 h-4 w-4 flex-none text-brand-cyan" />
+              <span>You preview, edit, approve, or reject.</span>
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-ink-200">
+              <Icon name="lucide:check" class="mt-0.5 h-4 w-4 flex-none text-brand-cyan" />
+              <span>AI cannot fire buttons. No <code class="rounded bg-white/[0.06] px-1 text-brand-cyan">run_button</code> tool by design.</span>
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-ink-200">
+              <Icon name="lucide:check" class="mt-0.5 h-4 w-4 flex-none text-brand-cyan" />
+              <span>Secrets never leave your machine. Substitution happens at fire time, not at proposal time.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="card p-6">
+          <span class="eyebrow">Execute-only MCP</span>
+          <ul class="mt-4 space-y-3 text-ink-300">
+            <li class="flex items-start gap-2.5 text-sm">
+              <Icon name="lucide:minus" class="mt-0.5 h-4 w-4 flex-none text-ink-500" />
+              <span>AI fires buttons that already exist.</span>
+            </li>
+            <li class="flex items-start gap-2.5 text-sm">
+              <Icon name="lucide:minus" class="mt-0.5 h-4 w-4 flex-none text-ink-500" />
+              <span>No new buttons are authored from the chat side.</span>
+            </li>
+            <li class="flex items-start gap-2.5 text-sm">
+              <Icon name="lucide:minus" class="mt-0.5 h-4 w-4 flex-none text-ink-500" />
+              <span>The approval surface is the deck itself, not an inbox.</span>
+            </li>
+          </ul>
+          <p class="mt-4 text-xs text-ink-400">
+            Both models can coexist. The trade-off is where the human review
+            happens — at run time, or at author time.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFETY INVARIANTS -->
+  <section class="border-t border-white/5">
+    <div class="container-page py-20 md:py-28">
+      <SectionHeading
+        eyebrow="Safety invariants"
+        title="The rules AI can't break."
+        description="Written into the MCP layer itself — not just policy."
+      />
+      <div class="mt-10 grid gap-4 md:grid-cols-2">
+        {
+          [
+            { i: 'lucide:lock', t: 'No firing', d: 'AI cannot trigger an existing button. Only propose new ones.' },
+            { i: 'lucide:eye-off', t: 'No source-code access', d: 'AI sees deck config; never reads your codebase, files, or terminal history.' },
+            { i: 'lucide:key-round', t: 'No secret values', d: 'Secrets are referenced by name. Substitution happens at fire time on your machine.' },
+            { i: 'lucide:list-x', t: 'No bulk ops', d: 'AI proposes one button at a time. No mass-delete, no mass-replace.' },
+            { i: 'lucide:shield', t: 'Locked pages stay locked', d: 'Proposals targeting a locked page return locked:true; user approval gates everything.' },
+            { i: 'lucide:scroll-text', t: 'Every action audited', d: 'Propose, approve, fire — all timestamped. Export to CSV from the Audit Log widget.' },
+          ].map((rule) => (
+            <div class="card flex gap-4 p-5">
+              <span class="inline-flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan ring-1 ring-inset ring-brand-cyan/20">
+                <Icon name={rule.i} class="h-5 w-5" />
+              </span>
+              <div>
+                <p class="text-sm font-semibold text-ink-50">{rule.t}</p>
+                <p class="mt-1 text-sm text-ink-300">{rule.d}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <section class="border-t border-white/5 bg-ink-900/30">
+    <div class="container-page py-20 md:py-28">
+      <SectionHeading
+        eyebrow="Works with"
+        title="Bring your own client."
+        description="MCP-native everywhere. Direct API mode if you'd rather skip MCP."
+      />
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          clients.map((c) => (
+            <div class="card flex flex-col gap-2 p-5">
+              <p class="text-sm font-semibold text-ink-50">{c.name}</p>
+              <p class="text-xs text-ink-300">{c.detail}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-8 text-sm text-ink-300">
+        Don't want to wire up an MCP client? The AI Builder also takes
+        <strong class="text-ink-100">direct Anthropic / OpenAI / local Ollama</strong> keys, or paste-JSON
+        imports from any AI chat.
+      </p>
+    </div>
+  </section>
+
+  <section class="border-t border-white/5">
+    <div class="container-page py-20 md:py-28">
+      <SectionHeading
+        eyebrow="In the manifest"
+        title="AI Builder features."
+      />
+      <div class="mt-10">
+        <FeatureGrid features={aiFeatures} columns={3} />
+      </div>
+    </div>
+  </section>
+</Base>

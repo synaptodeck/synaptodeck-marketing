@@ -1,0 +1,105 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const links = [
+  { href: '/features', label: 'Features' },
+  { href: '/ai-builder', label: 'AI Builder' },
+  { href: '/mobile-remote', label: 'Mobile Remote' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/vs/stream-deck', label: 'vs Stream Deck' },
+];
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="sticky top-0 z-40 border-b border-white/5 bg-ink-950/80 backdrop-blur-md">
+  <nav class="container-page flex h-16 items-center justify-between gap-6" aria-label="Main">
+    <a href="/" class="flex items-center gap-2.5 text-ink-50 hover:text-brand-cyan" aria-label="SynaptoDeck home">
+      <img src="/brand/logo-mark.svg" alt="" width="28" height="28" class="h-7 w-7" />
+      <span class="text-base font-semibold tracking-tightish">SynaptoDeck</span>
+    </a>
+
+    <ul class="hidden items-center gap-1 md:flex">
+      {
+        links.map((link) => {
+          const active = pathname === link.href;
+          return (
+            <li>
+              <a
+                href={link.href}
+                aria-current={active ? 'page' : undefined}
+                class:list={[
+                  'rounded-md px-3 py-2 text-sm transition',
+                  active ? 'text-brand-cyan' : 'text-ink-200 hover:text-ink-50',
+                ]}
+              >
+                {link.label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <a
+        href="https://github.com/synaptodeck/synaptodeck"
+        rel="noopener"
+        class="hidden h-9 w-9 items-center justify-center rounded-md text-ink-200 hover:bg-white/5 hover:text-ink-50 sm:inline-flex"
+        aria-label="SynaptoDeck on GitHub"
+      >
+        <Icon name="lucide:github" class="h-4 w-4" />
+      </a>
+      <a href="/download" class="btn-primary text-sm">
+        <Icon name="lucide:download" class="h-4 w-4" />
+        <span>Download</span>
+      </a>
+      <button
+        type="button"
+        id="nav-toggle"
+        aria-controls="mobile-nav"
+        aria-expanded="false"
+        class="inline-flex h-9 w-9 items-center justify-center rounded-md text-ink-200 hover:bg-white/5 md:hidden"
+      >
+        <span class="sr-only">Open menu</span>
+        <Icon name="lucide:menu" class="h-5 w-5" />
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-nav" hidden class="border-t border-white/5 bg-ink-950/95 md:hidden">
+    <ul class="container-page flex flex-col gap-1 py-3">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="block rounded-md px-3 py-2 text-sm text-ink-200 hover:bg-white/5 hover:text-ink-50"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a
+          href="https://github.com/synaptodeck/synaptodeck"
+          rel="noopener"
+          class="block rounded-md px-3 py-2 text-sm text-ink-200 hover:bg-white/5 hover:text-ink-50"
+        >
+          GitHub
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const panel = document.getElementById('mobile-nav');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    if (panel) panel.hidden = open;
+  });
+</script>

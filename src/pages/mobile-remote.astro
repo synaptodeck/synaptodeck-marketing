@@ -1,0 +1,103 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import { features } from '../lib/features';
+
+const mobileFeatures = features.filter((f) => f.category === 'mobile');
+---
+
+<Base
+  title="Mobile Remote"
+  description="Pair your phone to SynaptoDeck by QR over your LAN. No App Store install, no cloud account. Fire any button, switch any profile."
+>
+  <section class="container-page py-20 md:py-28">
+    <span class="eyebrow">Mobile Remote</span>
+    <h1 class="heading-1 mt-4 max-w-3xl text-ink-50">Your deck on your phone in 10 seconds.</h1>
+    <p class="lead mt-6 max-w-2xl">
+      Open the URL the desktop shows. Scan the QR. Done. The Mobile Remote runs
+      as a PWA over your LAN — no App Store, no cloud account, no subscription.
+    </p>
+
+    <div class="mt-10 grid gap-4 sm:grid-cols-3">
+      <div class="card flex items-start gap-3 p-5">
+        <Icon name="lucide:qr-code" class="h-5 w-5 text-brand-cyan" />
+        <div>
+          <p class="text-sm font-medium text-ink-50">Pair by QR</p>
+          <p class="mt-1 text-xs text-ink-300">One screen on desktop, one camera on your phone.</p>
+        </div>
+      </div>
+      <div class="card flex items-start gap-3 p-5">
+        <Icon name="lucide:wifi" class="h-5 w-5 text-brand-cyan" />
+        <div>
+          <p class="text-sm font-medium text-ink-50">LAN only</p>
+          <p class="mt-1 text-xs text-ink-300">Your remote talks to your laptop, not our servers.</p>
+        </div>
+      </div>
+      <div class="card flex items-start gap-3 p-5">
+        <Icon name="lucide:download-cloud" class="h-5 w-5 text-brand-cyan" />
+        <div>
+          <p class="text-sm font-medium text-ink-50">Installable PWA</p>
+          <p class="mt-1 text-xs text-ink-300">Add to home screen. Opens offline.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-white/5 bg-ink-900/30">
+    <div class="container-page py-20 md:py-28">
+      <SectionHeading
+        eyebrow="The pairing flow"
+        title="Four steps. Under a minute."
+      />
+      <ol class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {
+          [
+            {
+              n: 1,
+              t: 'Open SynaptoDeck',
+              d: 'On your desktop. Click "Mobile Remote" in the side panel.',
+            },
+            {
+              n: 2,
+              t: 'Scan the QR',
+              d: 'Your phone camera opens the pairing URL on your LAN.',
+            },
+            {
+              n: 3,
+              t: 'Confirm on desktop',
+              d: 'Approve the device. The pairing token lives on your machine.',
+            },
+            {
+              n: 4,
+              t: 'Add to home screen',
+              d: 'Optional. The PWA installs and reopens to the same deck.',
+            },
+          ].map((step) => (
+            <li class="card flex flex-col gap-3 p-6">
+              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-cyan/10 text-sm font-semibold text-brand-cyan ring-1 ring-inset ring-brand-cyan/30">
+                {step.n}
+              </span>
+              <p class="text-base font-semibold text-ink-50">{step.t}</p>
+              <p class="text-sm text-ink-300">{step.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="border-t border-white/5">
+    <div class="container-page py-20 md:py-28">
+      <SectionHeading
+        eyebrow="What it can do"
+        title="Every button. Every profile. Every page."
+        description="The Mobile Remote isn't a stripped-down companion. It fires the same actions, switches the same profiles, and respects the same audit log."
+      />
+      <div class="mt-12">
+        <FeatureGrid features={mobileFeatures} columns={2} />
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,77 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import Download from '../components/Download.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+---
+
+<Base
+  title="Download"
+  description="Get SynaptoDeck for Windows or macOS. Free for personal use. Signed installer, auto-updates, local-first."
+>
+  <section class="container-page py-20 md:py-28">
+    <SectionHeading
+      eyebrow="Download"
+      title="Get SynaptoDeck."
+      description="Free for personal use. Auto-updates over a signed feed. Uninstall at any time and your config goes with it."
+    />
+
+    <div class="mt-10 max-w-3xl">
+      <Download />
+    </div>
+
+    <p class="mt-4 text-xs text-ink-400">
+      Or grab a previous release from
+      <a class="underline hover:text-brand-cyan" href="https://github.com/synaptodeck/synaptodeck/releases" rel="noopener">GitHub Releases</a>.
+    </p>
+  </section>
+
+  <section class="border-t border-white/5">
+    <div class="container-page grid gap-12 py-20 lg:grid-cols-2">
+      <div>
+        <h2 class="heading-3 text-ink-50">System requirements</h2>
+        <ul class="prose-lite mt-5 space-y-3">
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+            <span><strong class="text-ink-100">Windows 10 or 11</strong>, x64. ~120 MB on disk.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+            <span><strong class="text-ink-100">macOS 13 Ventura or newer</strong>, Apple Silicon. ~110 MB on disk.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+            <span>A network connection if you want widgets that fetch live data. The deck itself runs offline.</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:check" class="mt-1 h-4 w-4 flex-none text-brand-cyan" />
+            <span>A phone on the same LAN if you want the Mobile Remote.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="heading-3 text-ink-50">Verify the installer</h2>
+        <p class="prose-lite mt-3">
+          We sign every release with minisign. The signature lives next to the
+          installer in GitHub Releases.
+        </p>
+        <pre class="mt-5 overflow-x-auto rounded-lg bg-ink-900/80 p-4 text-xs text-ink-100 ring-1 ring-inset ring-white/10"><code># macOS / Linux
+shasum -a 256 SynaptoDeck-x.y.z.dmg
+
+# Windows (PowerShell)
+Get-FileHash .\SynaptoDeck-x.y.z.exe -Algorithm SHA256</code></pre>
+        <p class="mt-3 text-xs text-ink-400">
+          Compare the printed hash against the <code class="rounded bg-white/[0.06] px-1 py-0.5 text-ink-200">SHA256SUMS</code> file in the release. Don't run the installer if they don't match.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-white/5">
+    <div class="container-page py-16 text-center">
+      <h2 class="heading-3 text-ink-50">After install</h2>
+      <p class="lead mt-3 mx-auto max-w-2xl">Pick a recipe to start with — Daily Apps, IDE Launchers, Spotify Deck — or open the AI Builder and describe the deck you want.</p>
+    </div>
+  </section>
+</Base>
