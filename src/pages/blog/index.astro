@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const empty = posts.length === 0;
+const fmt = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
+---
+
+<Base
+  title="Blog"
+  description="SynaptoDeck use-case posts, release deep-dives, and the occasional product opinion."
+>
+  <section class="container-page py-20 md:py-28">
+    <SectionHeading
+      eyebrow="Blog"
+      title={empty ? 'Coming soon.' : 'Posts.'}
+      description={
+        empty
+          ? "We're saving the first post for something worth reading. RSS-ready as soon as it lands."
+          : 'Use-case posts and release deep-dives.'
+      }
+    />
+
+    {
+      empty ? (
+        <div class="mt-12 max-w-2xl">
+          <div class="card p-6">
+            <p class="text-sm text-ink-200">
+              No posts yet. The plumbing is ready — drop a Markdown file into
+              <code class="rounded bg-white/[0.06] px-1 text-brand-cyan">src/content/blog/</code>
+              with the required frontmatter and it appears here on the next build.
+              RSS is live at
+              <a class="text-brand-cyan hover:underline" href="/blog/rss.xml">/blog/rss.xml</a>.
+            </p>
+            <p class="mt-3 text-xs text-ink-400">
+              Add a <code class="rounded bg-white/[0.06] px-1 text-ink-200">/blog</code> link to the
+              top nav once the first post ships.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <ul class="mt-12 space-y-4">
+          {posts.map((post) => (
+            <li>
+              <a
+                href={`/blog/${post.slug}/`}
+                class="card group block p-6 transition hover:bg-white/[0.04]"
+              >
+                <p class="text-xs text-ink-400">{fmt.format(post.data.pubDate)}</p>
+                <h2 class="mt-2 text-lg font-semibold text-ink-50 group-hover:text-brand-cyan">
+                  {post.data.title}
+                </h2>
+                <p class="mt-2 text-sm text-ink-300">{post.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</Base>

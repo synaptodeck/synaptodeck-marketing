@@ -41,33 +41,31 @@ managers pick it up automatically.
 The single most important design rule: **adding or removing a feature in the
 main app repo must update this site without a separate marketing-side edit.**
 
-### v1 — vendor + sync (in place)
+### Primary path — auto-mirror Action (v1.1, shipped)
 
-- The marketing site imports `src/data/features.json` at build time.
-- That file is a **vendored copy** of
-  `marketing/features.json` in the main repo
-  ([synaptodeck/synaptodeck](https://github.com/synaptodeck/synaptodeck)).
-- To refresh:
-  ```bash
-  npm run sync:features
-  git diff src/data/features.json
-  git commit -am "sync: features.json"
-  git push
-  ```
-- Cloudflare Pages auto-deploys on push to `main`.
+A GitHub Action in the main repo (`.github/workflows/mirror-features-to-marketing.yml`)
+fires on every push that touches `marketing/features.json` or
+`marketing/features.schema.json`. It opens (or updates) a PR here titled
+`sync: features manifest @ <sha>`. Merge → Cloudflare Pages rebuilds.
 
-### v1.1 — auto-mirror (planned)
+The Action needs a one-time `MARKETING_SYNC_TOKEN` secret on the main repo;
+setup notes are in the workflow file's header comment.
 
-A GitHub Action in the main repo will mirror `features.json` here on every
-push that touches the file:
+### Fallback — manual sync (kept in place)
 
-1. The main repo's CI watches `marketing/features.json`.
-2. On change, it opens a PR in this repo (`sync: features.json @ <sha>`).
-3. We auto-merge if the schema validates.
-4. CF Pages picks up the merge and redeploys.
+For one-off resyncs (or if the Action is paused), run:
 
-That removes the manual `npm run sync:features` step. v1 keeps the script;
-v1.1 also keeps it as a manual fallback.
+```bash
+npm run sync:features
+git diff src/data/features.json
+git commit -am "sync: features manifest"
+git push
+```
+
+`scripts/sync-features.mjs` uses `gh api` so it works against the private
+source repo. The dev needs `gh auth status` to be green. It falls back to an
+anonymous `raw.githubusercontent.com` fetch if `gh` isn't installed — that
+mode only succeeds if the source repo is public.
 
 ### Schema
 
