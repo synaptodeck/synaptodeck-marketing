@@ -550,10 +550,10 @@
       "id": "cmd-k-search",
       "name": "Cmd+K global search",
       "category": "core",
-      "status": "planned",
-      "plannedVersion": "v0.89.x",
-      "description": "Type to find any button on any page of any profile; jump-to-press; recent + favourites.",
-      "marketingCopy": "Coming soon: Cmd+K opens a typeahead over every button you've ever made. Fire any of them from anywhere.",
+      "status": "live",
+      "versionIntroduced": "v0.89.0",
+      "description": "Cmd+K opens a global typeahead over every button across every page across every profile. Ranks by title-exact > title-prefix > title-substring > page name > profile name > action target. Enter fires the result via the existing runButton dispatch.",
+      "marketingCopy": "Press Cmd+K from anywhere. Type to find any button you've ever made — across every deck. Enter to fire it. The Raycast / Alfred experience, applied to your deck.",
       "icon": "Search"
     },
     {
