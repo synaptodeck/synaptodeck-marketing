@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import Base from '../layouts/Base.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
 import SectionHeading from '../components/SectionHeading.astro';
@@ -49,4 +50,23 @@ const groups = featuresByCategory().filter((g) => g.items.length > 0);
       }
     </div>
   </div>
+
+  <section class="border-t border-white/5 bg-ink-900/30">
+    <div class="container-page py-16 text-center md:py-20">
+      <h2 class="heading-3 text-ink-50">Don't see what you need?</h2>
+      <p class="lead mt-3 mx-auto max-w-2xl">
+        We're shipping new features every week. Tell us what's missing or what's
+        broken — every message lands in the team's inbox.
+      </p>
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <a href="/feedback" class="btn-primary text-base">
+          <Icon name="lucide:message-circle" class="h-4 w-4" />
+          <span>Send feedback</span>
+        </a>
+        <a href="/download" class="btn-secondary text-base">
+          <span>Or try it free</span>
+        </a>
+      </div>
+    </div>
+  </section>
 </Base>
