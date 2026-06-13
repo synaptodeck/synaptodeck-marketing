@@ -13,6 +13,14 @@ name: Promote to production
 # "deployment approval" gate in CF — the act of running this
 # workflow IS the gate.
 #
+# Security note (per Q-Marketing-Gate review): the `source_sha`
+# input is NEVER interpolated directly into shell commands. It is
+# passed via the SOURCE_SHA env var AND validated against
+# `^[0-9a-f]{40}$` before any git command runs. This blocks
+# workflow-injection via crafted dispatch inputs (a malicious actor
+# with workflow-dispatch perms could otherwise inject shell
+# metacharacters through `${{ inputs.source_sha }}`).
+#
 # Manual fallback (if the workflow is broken):
 #   git fetch origin
 #   git checkout release
@@ -26,7 +34,7 @@ on:
   workflow_dispatch:
     inputs:
       source_sha:
-        description: 'main commit SHA to promote to `release`'
+        description: 'main commit SHA to promote to `release` (full 40-character lowercase hex)'
         required: true
 
 permissions:
@@ -36,7 +44,27 @@ jobs:
   promote:
     name: Fast-forward release to source_sha
     runs-on: ubuntu-latest
+    # The input is bound to an env var ONCE here; every step below
+    # references $SOURCE_SHA, never ${{ inputs.source_sha }} inside a
+    # shell. This is the standard GitHub-Actions injection-hardening
+    # pattern.
+    env:
+      SOURCE_SHA: ${{ inputs.source_sha }}
     steps:
+      - name: Validate source_sha format (hardening)
+        # MUST be the very first step. If the input is anything other
+        # than a full 40-character lowercase hex string, refuse it.
+        # Closes workflow-injection via crafted dispatch input.
+        # Bash regex is anchored; -E enables ERE.
+        run: |
+          set -euo pipefail
+          if [[ ! "$SOURCE_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::Invalid source_sha: must be a full 40-character lowercase hex commit SHA."
+            echo "::error::Got: $SOURCE_SHA"
+            exit 1
+          fi
+          echo "source_sha format OK."
+
       - name: Checkout release branch
         uses: actions/checkout@v4
         with:
@@ -54,8 +82,8 @@ jobs:
         run: |
           set -euo pipefail
           git fetch origin main
-          if ! git merge-base --is-ancestor "${{ inputs.source_sha }}" origin/main; then
-            echo "::error::Target SHA ${{ inputs.source_sha }} is NOT reachable from origin/main — refusing to promote a non-main commit."
+          if ! git merge-base --is-ancestor "$SOURCE_SHA" origin/main; then
+            echo "::error::Target SHA $SOURCE_SHA is NOT reachable from origin/main — refusing to promote a non-main commit."
             exit 1
           fi
           echo "Target SHA is on origin/main."
@@ -64,7 +92,7 @@ jobs:
         # Refuses non-FF (release must not diverge from main's history).
         run: |
           set -euo pipefail
-          git merge --ff-only "${{ inputs.source_sha }}" || {
+          git merge --ff-only "$SOURCE_SHA" || {
             echo "::error::Not a fast-forward — release branch has diverged. Manual review required."
             exit 1
           }
@@ -76,7 +104,7 @@ jobs:
           {
             echo "## Promote to production"
             echo ""
-            echo "- Target SHA: \`${{ inputs.source_sha }}\`"
+            echo "- Target SHA: \`$SOURCE_SHA\`"
             echo "- Result: ${{ job.status }}"
             echo ""
             echo "Cloudflare Pages will pick up the new \`release\` tip"
