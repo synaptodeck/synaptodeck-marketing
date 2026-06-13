@@ -1,0 +1,84 @@
+name: Promote to production
+
+# Q-Marketing-Gate Q8.d — fast-forward `release` to a chosen `main`
+# commit, gated by two checks:
+#   1. Ancestor check  — target SHA must be reachable from origin/main
+#                        (closes the "promote a feature-branch commit" mode)
+#   2. Fast-forward    — refuses non-FF (closes "promote sideways")
+#
+# Cloudflare Pages production-branch is configured as `release`
+# (after the one-time bootstrap documented in the source repo's
+# docs/RELEASE_PROMOTION.md). The instant `release` advances, CF
+# auto-deploys the new tip to synaptodeck.app. There is NO separate
+# "deployment approval" gate in CF — the act of running this
+# workflow IS the gate.
+#
+# Manual fallback (if the workflow is broken):
+#   git fetch origin
+#   git checkout release
+#   git merge --ff-only <main-sha>
+#   git push origin release
+#
+# That bypasses the ancestor check; use only if you've already
+# verified the SHA is on origin/main yourself.
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: 'main commit SHA to promote to `release`'
+        required: true
+
+permissions:
+  contents: write  # only for the release-branch fast-forward push
+
+jobs:
+  promote:
+    name: Fast-forward release to source_sha
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: release
+
+      - name: Configure git identity for the promotion push
+        run: |
+          git config user.name "promote-to-prod[bot]"
+          git config user.email "promote-to-prod[bot]@users.noreply.github.com"
+
+      - name: Verify target SHA is reachable from origin/main
+        # Closes the "promote a feature-branch SHA" failure mode.
+        # If the SHA isn't on main, refuse the promotion.
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          if ! git merge-base --is-ancestor "${{ inputs.source_sha }}" origin/main; then
+            echo "::error::Target SHA ${{ inputs.source_sha }} is NOT reachable from origin/main — refusing to promote a non-main commit."
+            exit 1
+          fi
+          echo "Target SHA is on origin/main."
+
+      - name: Fast-forward release to source_sha
+        # Refuses non-FF (release must not diverge from main's history).
+        run: |
+          set -euo pipefail
+          git merge --ff-only "${{ inputs.source_sha }}" || {
+            echo "::error::Not a fast-forward — release branch has diverged. Manual review required."
+            exit 1
+          }
+          git push origin release
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## Promote to production"
+            echo ""
+            echo "- Target SHA: \`${{ inputs.source_sha }}\`"
+            echo "- Result: ${{ job.status }}"
+            echo ""
+            echo "Cloudflare Pages will pick up the new \`release\` tip"
+            echo "automatically and deploy to \`synaptodeck.app\`."
+          } >> "$GITHUB_STEP_SUMMARY"
