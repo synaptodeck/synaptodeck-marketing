@@ -437,6 +437,16 @@
       "icon": "BookOpen"
     },
     {
+      "id": "trust-center",
+      "name": "Trust Center",
+      "category": "safety",
+      "status": "live",
+      "versionIntroduced": "v0.92.0",
+      "description": "Settings → Security top-level landing surface that orients users to every privacy + safety control in one place: crash-report consent, inbound webhook notifications, audit log, secrets vault, plus the local-first / no-cloud / no-telemetry posture.",
+      "marketingCopy": "One screen names everything privacy-related — crash reports, webhooks, the audit log, the secrets vault — and reminds you SynaptoDeck never sends your config, deck contents, or button targets anywhere. Designed so a security-minded user can size up SynaptoDeck in 30 seconds before installing it on a work machine.",
+      "icon": "ShieldCheck"
+    },
+    {
       "id": "audit-log",
       "name": "Audit log",
       "category": "safety",
