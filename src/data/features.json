@@ -317,6 +317,16 @@
       "icon": "Cable"
     },
     {
+      "id": "widget-github-releases",
+      "name": "GitHub releases watcher widget",
+      "category": "widgets",
+      "status": "live",
+      "versionIntroduced": "v0.93.0",
+      "description": "Polls any GitHub repo's /releases/latest on a configurable interval (default 60min) and badges the deck button when the latest tag is newer than the user's acknowledgedVersion. Pre-filled defaults watch SynaptoDeck's own release mirror.",
+      "marketingCopy": "Know the second a new SynaptoDeck release lands — or any other repo you care about. Drop the widget, point it at owner/repo, get a badge when there's an update worth your attention.",
+      "icon": "Rocket"
+    },
+    {
       "id": "widget-spotify-now-playing",
       "name": "Spotify Now Playing strip",
       "category": "widgets",
